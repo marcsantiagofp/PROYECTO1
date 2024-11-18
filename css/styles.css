@@ -1,0 +1,424 @@
+/* Estilos generales */
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Caracteristicas */
+
+h2{
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Hover para oscurecer botones */
+button:hover,
+.buscar-btn:hover,
+.etiquetaOferta:hover,
+.etiquetaComprar:hover,
+.etiquetaComprarBebidas:hover,
+.botonesCarrito:hover {
+    filter: brightness(0.75); /* Oscurece el fondo un poco */
+    transition: filter 0.1s ease; /* Suaviza la transición */
+}
+
+/* Subrayar nombres al pasar el cursor sobre el div contenedor */
+.tarjeta-productos:hover .nombre-productos,
+.nombre-categorias:hover,
+.quintaSeccion:hover .nombreBebidas{
+    text-decoration: underline;
+    text-decoration-color: black;
+    transition: text-decoration-color 0.3s ease; /* Suaviza la transición */
+}
+
+/* Pormociones */
+.promocion {
+    background-color: #3643BA;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+    height: 40px;
+}
+
+.textoPromocion{
+    margin-top: 9px;
+}
+
+/* Parte superior */
+.parte-superior {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.logo {
+    width: 200px;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+/* Boton menu */
+.navbar-toggler {
+    position: relative;
+    margin-left: -15px;
+}
+
+.collapse.navbar-collapse {
+    flex-grow: 0;
+    justify-content: flex-start;
+}
+
+/* Buscador */
+.buscador {
+    flex: 1;
+    padding: 6.5px;
+    border: 2px solid #3643BA;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin: 12px 0;
+}
+
+/* Para el buscador al estar seleccionado */
+.buscador:focus {
+    outline: none;  /* Elimina el contorno predeterminado del navegador */
+    color: #000000;  /* Mantén el color negro en el texto */
+    border-color: #3643BA; /* Mantén el color de borde si lo deseas */
+}
+
+.buscador::placeholder {
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    color: #d5d4d4;
+}
+
+.buscar-btn {
+    padding: 5.5px 11px;
+    background-color: #3643BA;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-right: 30px;
+}
+
+.lupa {
+    width: 30px;
+}
+
+.iconos {
+    display: flex;
+    justify-content: space-around;
+    gap: 23px;
+    cursor: pointer;
+}
+
+.icono {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 9px;
+    color: #000000;
+    margin-right: 10px;
+}
+
+.icono-img {
+    font-size: 20px;
+}
+
+/* Menú de navegación */
+.menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 2px;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+
+.menu a {
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu a:hover {
+    color: #3738BB;
+}
+
+.menu .navbar-nav .nav-item {
+    margin-right: 130px;
+    margin-left: 5px;
+}
+
+/* Línea separadora */
+.linea-separadora {
+    height: 0.5px;
+    background-color: rgb(171, 171, 171);
+    width: 100%;
+    box-shadow: 10px 1px 2px rgba(124, 124, 124, 0.7);
+}
+
+
+/* HOME */
+    /* PARTE 1 */
+    .primeraSeccion {
+        position: relative;
+        margin-top: 50px;
+        position: relative;
+        width: 100%; /* Se ajusta al ancho de la columna */
+        border: 0px solid #f2f2f200;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    .imagenPrimeraSeccion {
+        width: 100%;
+        height: 100%;
+    }
+
+    .etiquetaOferta {
+        position: absolute;
+        top: 210px;
+        left: 15px;
+        background-color: #3643BA;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        padding: 5px 10px;
+        font-size: 14px;
+        border: none;
+    }
+
+    /* PARTE 2 */
+    .tarjeta-productos {
+        position: relative;
+        width: 100%; /* Se ajusta al ancho de la columna */
+        border: 1px solid #f2f2f2;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        padding: 20px;
+        background-color: white;
+    }
+
+    .etiquetaPrecioProductos {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: yellow;
+        color: black;
+        font-weight: bold;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    .imagen-productos {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .nombre-productos {
+        font-weight: bold;
+        color: #000000;
+        margin-top: 10px;
+    }
+
+    /* PATRTE 3 */
+    .nombre-categorias {
+        font-weight: bold;
+        color: #000000;
+        margin-top: 5px;
+        text-decoration: none;
+    }
+
+    /* PARTE 4 */
+
+    .quartaSeccion {
+        position: relative;
+        margin-top: 50px;
+        position: relative;
+        width: 100%; /* Se ajusta al ancho de la columna */
+        border: 0px solid #f2f2f200;
+        background-color: rgba(255, 255, 255, 0);
+        margin-bottom: 50px;
+    }
+
+    .imagenQuartaSeccion {
+        width: 100%;
+        height: 100%;
+    }
+
+    .etiquetaRecomendamos {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        background-color: #77FFA8;
+        color: #3643BA;
+        font-weight: bold;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    .etiquetaComprar {
+        position: absolute;
+        top: 175px;
+        left: 12px;
+        background-color: #3643BA;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        padding: 5px 10px;
+        font-size: 14px;
+        border: none;
+    }
+
+    /* PARTE 5 */
+
+    .quintaSeccion{
+        position: absolute;
+    }
+
+    .etiquetaPrecioBebidas {
+        position: absolute;
+        top: 130px;
+        left: 20px;
+        background-color: yellow;
+        color: black;
+        font-weight: bold;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+    
+    .nombreBebidas {
+        position: absolute;
+        top: 165px;
+        left: 22px;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    .etiquetaComprarBebidas {
+        position: absolute;
+        top: 370px;
+        left: 130px;
+        background-color: #3643BA;
+        color: white;
+        font-weight: bold;
+        padding: 5px 10px;
+        font-size: 14px;
+        border: none;
+        text-decoration: none;
+    }
+    
+
+    /* Footer */
+    /* General styling for the footer */
+    .footer {
+        background-color: #3643BA; /* Color similar al azul de la imagen */
+    }
+
+    .footer h6 {
+        font-weight: bold;
+    }
+
+    .footer p,
+    .footer a {
+        color: #ffffff;
+        text-decoration: none;
+    }
+    
+    /* Social icons */
+    .social-icons a {
+        color: #ffffff;
+        margin-right: 10px;
+        font-size: 1.2em;
+    }
+
+    .social-icons a:hover {
+        color: #dedede;
+    }
+
+/* PRODUCTOS */
+    .filtrosCategorias{
+        background-color: #FFFFFF;
+        outline: none; /* Elimina el outline negro */
+        border: 1px solid #ccc; /* Establece un borde sutil alrededor */
+        text-align: left;
+    }
+
+    .filtrosCategorias:hover{
+        background-color: #00000000;
+        padding-left: 20px;
+    }
+
+/* CARRITO */
+
+/* Estilos globales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Cabecera */
+/* Estilo para la cabecera */
+.header {
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.header-logo img {
+    height: 40px;
+}
+
+.header-links span {
+    font-size: 14.5px;
+    color: #333;
+    cursor: pointer;
+}
+
+.caractCarrito{
+    font-size: 14px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.miCesta{
+    margin-top: 30px;
+    font-size: 32px;
+    color: #000;
+}
+
+.separadorLineaCarrito{
+    border-bottom: 1px solid #ddd;
+}
+
+.contenedoresCarrito{
+    border-radius: 0%;
+}
+
+.botonesCarrito {
+    background-color: #3643BA;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 10px 10px;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    width: 100%;
+    margin-bottom: 15px;
+}
