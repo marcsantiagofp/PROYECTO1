@@ -19,7 +19,7 @@
 <!-- SECCION 2 -->
 <h2 style="margin-top: 30px; margin-bottom: 20px;">Productos recomendados</h2>
 <div class="row gx-2">
-    <?= include_once 'assets/cardRecomendado.php' ?>
+    <?php include_once 'assets/cardRecomendado.php' ?>
 </div>
 
 <!-- SECCION 3 -->
