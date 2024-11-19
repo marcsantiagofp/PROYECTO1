@@ -53,6 +53,22 @@ class ProductoDAO{
         $con->close();
         return $categorias;
     }
+
+    public static function getBebidas() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 4 LIMIT 4;");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $bebidas=[];
+        while($producto = $result->fetch_object("Producto")){
+            $bebidas[] = $producto;
+        }
+        
+        $con->close();
+        return $bebidas;
+    }
 }
 
 ?>

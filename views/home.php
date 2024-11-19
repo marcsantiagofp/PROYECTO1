@@ -26,31 +26,7 @@
 <div class="container text-center">
     <h2 style="margin-top: 30px; margin-bottom: 20px;">Categorías Favoritas</h2>
     <div class="row align-items-center">
-        
-        <div class="col-6 col-md-3 col-lg">
-            <a href="URL_TERNERA" class="nombre-categorias">
-                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" class="img-fluid">
-                <p>Ternera</p>
-            </a>
-        </div>
-        <div class="col-6 col-md-3 col-lg">
-            <a href="URL_VEGETAL" class="nombre-categorias">
-                <img src="/PROYECTO1/images/PRODUCTOS/Vegetal.svg" class="img-fluid">
-                <p>Vegetal</p>
-            </a>
-        </div>
-        <div class="col-6 col-md-3 col-lg">
-            <a href="URL_BEBIDAS" class="nombre-categorias">
-                <img src="/PROYECTO1/images/PRODUCTOS/AquariusLimon.svg" class="img-fluid">
-                <p>Bebidas</p>
-            </a>
-        </div>
-        <div class="col-6 col-md-3 col-lg">
-            <a href="URL_SALSAS" class="nombre-categorias">
-                <img src="/PROYECTO1/images/PRODUCTOS/SalsaBarbacoa.svg" class="img-fluid">
-                <p>Salsas</p>
-            </a>
-        </div>
+        <?php include_once 'assets/cardCategorias.php' ?>
     </div>
 </div>           
 <!-- SECCION 4 -->
@@ -67,30 +43,7 @@
     <div class="row me-12">
         <!-- Columna de bebidas con margen a la derecha -->
         <div class="col-6">
-            <div class="row mb-4">
-                <a href="URL_COCACOLA" class="col-6 position-relative quintaSeccion d-block">
-                    <img src="/PROYECTO1/images/PRODUCTOS/COCACOLA.svg" alt="Coca Cola" class="img-fluid">
-                    <p class="etiquetaPrecioBebidas">2,99€</p>
-                    <p class="nombreBebidas">COCA COLA</p>
-                </a>
-                <a href="URL_FANTA" class="col-6 position-relative quintaSeccion d-block">
-                    <img src="/PROYECTO1/images/PRODUCTOS/FANTA.svg" alt="Fanta" class="img-fluid">
-                    <p class="etiquetaPrecioBebidas">2,99€</p>
-                    <p class="nombreBebidas">FANTA</p>
-                </a>
-            </div>
-            <div class="row">
-                <a href="URL_MONSTER" class="col-6 position-relative quintaSeccion d-block">
-                    <img src="/PROYECTO1/images/PRODUCTOS/MONSTER.svg" alt="Monster" class="img-fluid">
-                    <p class="etiquetaPrecioBebidas">3,50€</p>
-                    <p class="nombreBebidas">MONSTER</p>
-                </a>
-                <a href="URL_FUSETEA" class="col-6 position-relative quintaSeccion d-block">
-                    <img src="/PROYECTO1/images/PRODUCTOS/FUSETEA.svg" alt="Fuze Tea" class="img-fluid">
-                    <p class="etiquetaPrecioBebidas">2,99€</p>
-                    <p class="nombreBebidas">FUZE TEA</p>
-                </a>
-            </div>
+            <?php include_once 'assets/cardBebidas.php' ?>
         </div>
 
         <!-- Columna de imagen grande a la derecha -->
