@@ -1,7 +1,11 @@
-<?php
-include_once 'header.php'
-?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+</head>
+<body>
 <div class="container mt-3">
     <h2 class="mb-3">Hamburguesas</h2>
     <p class="mb-4">Descubre nuestra deliciosas hamburguesas, preparadas con ingredientes frescos y con opciones para todos los gustos. Personaliza tu pedido a tu gusto y disfruta de una experiencia de comida rápida, cómoda y sabrosa. ¡Haz tu menú único con las mejores combinaciones de bebidas, patatas y más!</p>
@@ -138,7 +142,5 @@ include_once 'header.php'
         </div>
     </div>
 </div>
-
-<?php
-include_once 'footer.php'
-?>
+</body>
+</html>

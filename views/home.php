@@ -1,7 +1,12 @@
-<?php
-include_once 'header.php'
-?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    
 <main class="container">
 <!-- SECCION 1 -->
 <div class="container px-6 text-center">
@@ -14,54 +19,14 @@ include_once 'header.php'
 <!-- SECCION 2 -->
 <h2 style="margin-top: 30px; margin-bottom: 20px;">Productos recomendados</h2>
 <div class="row gx-2">
-    <div class="col-sm-6 col-md-3 col-lg-3 col-lx-3">
-        <a href="URL_DESTINO_1" class="text-decoration-none">
-            <div class="tarjeta-productos">
-                <div class="etiquetaPrecioProductos">7,99€</div>
-                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" class="img-fluid imagen-producto" alt="40px">
-                <p class="nombre-productos">Duo Bacon Cheddar</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3 col-lx-3">
-        <a href="URL_DESTINO_2" class="text-decoration-none">
-            <div class="tarjeta-productos">
-                <div class="etiquetaPrecioProductos">7,99€</div>
-                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" class="img-fluid imagen-productos" alt="40px">
-                <p class="nombre-productos">Duo Bacon Cheddar</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3 col-lx-3">
-        <a href="URL_DESTINO_3" class="text-decoration-none">
-            <div class="tarjeta-productos">
-                <div class="etiquetaPrecioProductos">7,99€</div>
-                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" class="img-fluid imagen-productos" alt="40px">
-                <p class="nombre-productos">Duo Bacon Cheddar</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3 col-lx-3">
-        <a href="URL_DESTINO_4" class="text-decoration-none">
-            <div class="tarjeta-productos">
-                <div class="etiquetaPrecioProductos">7,99€</div>
-                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" class="img-fluid imagen-productos" alt="40px">
-                <p class="nombre-productos">Duo Bacon Cheddar</p>
-            </div>
-        </a>
-    </div>
-</div>        
+    <?= include_once 'assets/cardRecomendado.php' ?>
+</div>
 
 <!-- SECCION 3 -->
 <div class="container text-center">
     <h2 style="margin-top: 30px; margin-bottom: 20px;">Categorías Favoritas</h2>
     <div class="row align-items-center">
-        <div class="col-6 col-md-3 col-lg">
-            <a href="URL_POLLO" class="nombre-categorias">
-                <img src="/PROYECTO1/images/PRODUCTOS/Pollo.svg" class="img-fluid">
-                <p>Pollo</p>
-            </a>
-        </div>
+        
         <div class="col-6 col-md-3 col-lg">
             <a href="URL_TERNERA" class="nombre-categorias">
                 <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" class="img-fluid">
@@ -139,6 +104,5 @@ include_once 'header.php'
 </div>
 </main>
 
-<?php
-include_once 'footer.php'
-?>
+</body>
+</html>
