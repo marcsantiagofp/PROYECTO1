@@ -5,23 +5,6 @@ include_once("models/Producto.php");
 
 
 class ProductoDAO{
-
-    public static function getAll(){
-        $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM PRODUCTO;");
-        
-        $stmt->execute();
-        $result = $stmt->get_result();
-            
-        $productos=[];
-        while($producto = $result->fetch_object("Producto")){
-            $productos[] = $producto;
-        }
-
-        $con->close();
-        return $productos;
-    }
-
     public static function getRecomendados() {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM PRODUCTO LIMIT 4");
@@ -54,7 +37,7 @@ class ProductoDAO{
         return $categorias;
     }
 
-    public static function getBebidas() {
+    public static function getSeccionBebidas() {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 4 LIMIT 4;");
         
@@ -68,6 +51,22 @@ class ProductoDAO{
         
         $con->close();
         return $bebidas;
+    }
+
+    public static function getHamburgesas() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria IN (1, 2, 3)");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $hamburgesas=[];
+        while($producto = $result->fetch_object("Producto")){
+            $hamburgesas[] = $producto;
+        }
+        
+        $con->close();
+        return $hamburgesas;
     }
 }
 

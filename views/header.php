@@ -16,7 +16,7 @@
                     <p class="textoPromocion">Promoción Menu Burger Barbacoa 4'99€ 🔥🔥</p>
                 </div>
                 <div class="carousel-item">
-                    <p class="textoPromocion">Prueba nuestras novedades 🍔🍔</p>
+                    <p class="textoPromocion">Prueba nuestras hamburgesas 🍔🍔</p>
                 </div>
                 <div class="carousel-item">
                     <p class="textoPromocion">Prueba tus bebidas favoritas 🥤🥤</p>
