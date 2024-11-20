@@ -23,7 +23,7 @@ class ProductoDAO{
 
     public static function getCategorias() {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM CATEGORIA;");
+        $stmt = $con->prepare("SELECT * FROM CATEGORIA LIMIT 5;");
         
         $stmt->execute();
         $result = $stmt->get_result();
@@ -53,7 +53,7 @@ class ProductoDAO{
         return $bebidas;
     }
 
-    public static function getHamburgesas() {
+    public static function getHamburguesas() {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria IN (1, 2, 3)");
         
@@ -72,6 +72,102 @@ class ProductoDAO{
     public static function getMenus() {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 6");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
+
+    public static function getCombos() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 7");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
+
+    public static function getPostres() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 8");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
+
+    public static function getPatatas() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 9");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
+
+    public static function getBebidas() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 4");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
+
+    public static function getInfantiles() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 11");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
+
+    public static function getOfertas() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 12");
         
         $stmt->execute();
         $result = $stmt->get_result();

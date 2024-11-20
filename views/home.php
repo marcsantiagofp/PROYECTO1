@@ -13,7 +13,7 @@
     <div class="col">
         <div class="primeraSeccion">
             <img src="/PROYECTO1/images/SECCION1HOME.svg" class="img-fluid imagenPrimeraSeccion"> 
-            <button type="button" class="etiquetaOferta">Ver ofertas</button>
+            <a href="?controller=producto&action=ofertas"><button type="button" class="etiquetaOferta">Ver ofertas</button></a>
         </div>
     </div>
 <!-- SECCION 2 -->
@@ -50,7 +50,7 @@
         <div class="col-6 d-flex align-items-center">
             <div class="col-12 position-relative quintaSeccion">
                 <img src="/PROYECTO1/images/SECCION5HOME.svg" width="62%" class="img-fluid">
-                <a href="URL_VER_PRODUCTOS" class="etiquetaComprarBebidas">Ver Productos</a>
+                <a href="?controller=producto&action=bebidas" class="etiquetaComprarBebidas">Ver Productos</a>
             </div>
         </div>             
     </div>

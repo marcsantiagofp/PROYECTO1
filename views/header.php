@@ -70,28 +70,28 @@
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=hamburgesas">Hamburguesas</a>
+                            <a class="nav-link" href="?controller=producto&action=hamburguesas">Hamburguesas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="?controller=producto&action=menus">Menús</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Combos</a>
+                            <a class="nav-link" href="?controller=producto&action=combos">Combos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Postres</a>
+                            <a class="nav-link" href="?controller=producto&action=postres">Postres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Patatas</a>
+                            <a class="nav-link" href="?controller=producto&action=patatas">Patatas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Bebidas</a>
+                            <a class="nav-link" href="?controller=producto&action=bebidas">Bebidas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Infantiles</a>
+                            <a class="nav-link" href="?controller=producto&action=infantiles">Infantiles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: #E3262F;">Ofertas</a>
+                            <a class="nav-link" href="?controller=producto&action=ofertas" style="color: #E3262F;">Ofertas</a>
                         </li>
                     </ul>
                 </div>
