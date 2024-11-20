@@ -6,6 +6,6 @@
     <title>Productos</title>
 </head>
 <body>
-    <?php include_once 'assets/cardHamburgesas.php' ?>
+    <?php include_once  $paginaMostrar ?>
 </body>
 </html>

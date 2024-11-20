@@ -33,7 +33,7 @@
                         <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 30 30%22%3E%3Cpath stroke=%22black%22 stroke-width=%222%22 d=%22M4 7h22M4 15h22M4 23h22%22/%3E%3C/svg%3E');"></span>
                         <span class="text-nowrap" style="font-size: 11px;">MENU</span>
                     </button>
-                    <a href="home.php">
+                    <a href="?controller=producto&action=home">
                         <img src="/PROYECTO1/images/logoPrincipal.png" alt="DecathlonEats Logo" class="img-fluid logo">
                     </a>
                     <input type="text" placeholder="Busca producto, ..." class="buscador">
@@ -70,7 +70,7 @@
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="productos.php">Hamburguesas</a>
+                            <a class="nav-link" href="?controller=producto&action=hamburgesas">Hamburguesas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Menús</a>

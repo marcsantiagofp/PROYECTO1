@@ -14,6 +14,7 @@ class productoController{
     public static function hamburgesas() {
         $hamburgesas = ProductoDAO::getHamburgesas();
         $view = 'views/productos.php';
+        $paginaMostrar='assets/cardHamburgesas.php';
         include_once 'views/main.php';
     }
 }
