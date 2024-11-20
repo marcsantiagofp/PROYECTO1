@@ -1,6 +1,6 @@
 <div class="container mt-3">
-    <h2 class="mb-3">Hamburguesas</h2>
-    <p class="mb-4">Descubre nuestra deliciosas hamburguesas, preparadas con ingredientes frescos y con opciones para todos los gustos. Personaliza tu pedido a tu gusto y disfruta de una experiencia de comida rápida, cómoda y sabrosa. ¡Haz tu menú único con las mejores combinaciones de bebidas, patatas y más!</p>
+    <h2 class="mb-3">Menús</h2>
+    <p class="mb-4">Explora nuestras opciones de menús completos, diseñados para ofrecerte el combo perfecto. Incluyen tu hamburguesa favorita, una guarnición deliciosa y una bebida refrescante. ¡Una experiencia completa en cada bocado!</p>
     
     <!-- Filtros y orden a la derecha -->
     <div class="d-flex justify-content-end align-items-center mb-4">
@@ -21,7 +21,7 @@
             <div class="btn-group-vertical w-100">
                 <button class="w-100 filtrosCategorias">Pollo ></button>
                 <button class="w-100 filtrosCategorias">Ternera ></button>
-                <button class="w-100 filtrosCategorias">Vegetarianas ></button>
+                <button class="w-100 filtrosCategorias">Vegetariano ></button>
             </div>
         </div>
 

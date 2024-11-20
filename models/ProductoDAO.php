@@ -68,6 +68,22 @@ class ProductoDAO{
         $con->close();
         return $hamburgesas;
     }
+
+    public static function getMenus() {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id_categoria = 6");
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+            
+        $menus=[];
+        while($producto = $result->fetch_object("Producto")){
+            $menus[] = $producto;
+        }
+        
+        $con->close();
+        return $menus;
+    }
 }
 
 ?>

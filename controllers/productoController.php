@@ -17,5 +17,11 @@ class productoController{
         $paginaMostrar='assets/cardHamburgesas.php';
         include_once 'views/main.php';
     }
+    public static function menus() {
+        $hamburgesas = ProductoDAO::getMenus();
+        $view = 'views/productos.php';
+        $paginaMostrar='assets/cardMenus.php';
+        include_once 'views/main.php';
+    }
 }
 ?>

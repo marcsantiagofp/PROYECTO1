@@ -73,7 +73,7 @@
                             <a class="nav-link" href="?controller=producto&action=hamburgesas">Hamburguesas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Menús</a>
+                            <a class="nav-link" href="?controller=producto&action=menus">Menús</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Combos</a>
