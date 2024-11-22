@@ -26,7 +26,7 @@
 <div class="container text-center">
     <h2 style="margin-top: 30px; margin-bottom: 20px;">Categorías Favoritas</h2>
     <div class="row align-items-center">
-        <?php include_once 'assets/cardCategorias.php' ?>
+        <?php include_once 'assets/cardSeccionCategorias.php' ?>
     </div>
 </div>           
 <!-- SECCION 4 -->

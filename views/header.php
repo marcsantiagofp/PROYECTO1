@@ -70,28 +70,28 @@
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=hamburguesas">Hamburguesas</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=1">Hamburguesas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=menus">Menús</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=2">Menús</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=combos">Combos</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=3">Combos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=postres">Postres</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=4">Postres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=patatas">Patatas</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=5">Patatas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=bebidas">Bebidas</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=6">Bebidas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=infantiles">Infantiles</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=7">Infantiles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?controller=producto&action=ofertas" style="color: #E3262F;">Ofertas</a>
+                            <a class="nav-link" href="?controller=producto&action=mostrarProductos&id=8" style="color: #E3262F;">Ofertas</a>
                         </li>
                     </ul>
                 </div>

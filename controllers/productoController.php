@@ -6,58 +6,35 @@ include_once 'config/dataBase.php';
 class productoController{
     public static function home() {
         $recomendados = ProductoDAO::getRecomendados();
-        $categorias = ProductoDAO::getCategorias();
+        $categorias = ProductoDAO::getSeccionCategorias();
         $bebidas = ProductoDAO::getSeccionBebidas();
         $view = 'views/home.php';
         include_once 'views/main.php';
     }
-    public static function hamburguesas() {
-        $hamburgesas = ProductoDAO::getHamburguesas();
+    
+    public static function mostrarProductos() {
+        // Obtener el ID de la categoría desde la URL
+        $id_categoria = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    
+        // Obtener el orden desde la URL (ascendente o descendente)
+        $orden = isset($_GET['orden']) ? $_GET['orden'] : null;
+    
+        // Llamar a la función getCategoria con el ID de la categoría
+        $categoria = ProductoDAO::getCategoria($id_categoria);
+    
+        // Llamar a la función getTiposPorCategoria con el ID de la categoría
+        $tipos = ProductoDAO::getTiposPorCategoria($id_categoria);
+    
+        // Llamar a la función getProductos con el ID de la categoría y el orden
+        $productos = ProductoDAO::getProductos($id_categoria, $orden);
+    
+        // Establecer las vistas a mostrar
         $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
+        $paginaMostrar = 'assets/cardProductos.php';
+    
+        // Incluir la vista principal
         include_once 'views/main.php';
     }
-    public static function menus() {
-        $hamburgesas = ProductoDAO::getMenus();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
-    public static function combos() {
-        $hamburgesas = ProductoDAO::getCombos();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
-    public static function postres() {
-        $hamburgesas = ProductoDAO::getPostres();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
-    public static function patatas() {
-        $hamburgesas = ProductoDAO::getPatatas();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
-    public static function bebidas() {
-        $hamburgesas = ProductoDAO::getBebidas();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
-    public static function infantiles() {
-        $hamburgesas = ProductoDAO::getInfantiles();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
-    public static function ofertas() {
-        $hamburgesas = ProductoDAO::getOfertas();
-        $view = 'views/productos.php';
-        $paginaMostrar='assets/cardProductos.php';
-        include_once 'views/main.php';
-    }
+    
 }
 ?>

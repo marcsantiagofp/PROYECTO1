@@ -5,15 +5,7 @@
                 protected $nombre;
                 protected $precio;
                 protected $url_imagen;
-
-                // public function __construct($nombre,$categoria,$precio,$id_oferta,$url_imagen){
-                //     $this->nombre=$nombre;
-                //     $this->categoria=$categoria;
-                //     $this->precio=$precio;
-                //     $this->id_oferta=$id_oferta;
-                //     $this->url_imagen=$url_imagen;
-                // }
-
+                protected $descripcion;
 
                 /**
                  * Get the value of nombre
@@ -73,6 +65,26 @@
                         $this->url_imagen = $url_imagen;
 
                         return $this;
+                }
+
+                /**
+                 * Get the value of descripcion
+                 */ 
+                public function getDescripcion()
+                {
+                                return $this->descripcion;
+                }
+
+                /**
+                 * Set the value of descripcion
+                 *
+                 * @return  self
+                 */ 
+                public function setDescripcion($descripcion)
+                {
+                                $this->descripcion = $descripcion;
+
+                                return $this;
                 }
         }
 ?>
