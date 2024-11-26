@@ -52,12 +52,12 @@
                         </div>
                         </a>
                         <a href="/tienda">
-                        <div class="icono d-flex flex-column align-items-center">
+                        <div class="icono d-flex flex-column align-items-center">   
                             <span class="icono-img"><i class="bi bi-person-circle"></i></span> <!-- Mi cuenta -->
                             <span class="text-nowrap">MI CUENTA</span>
                         </div>
                         </a>
-                        <a href="carrito.php">
+                        <a href="?controller=carrito&action=verCarrito">
                         <div class="icono d-flex flex-column align-items-center" style="color: #3643BA;">
                             <span class="icono-img"><i class="bi bi-cart-check"></i></span> <!-- Mi cesta -->
                             <span class="text-nowrap">MI CESTA</span>

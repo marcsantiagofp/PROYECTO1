@@ -39,17 +39,23 @@
         <div class="col-md-9">
             <div class="row gx-3 gy-4">
                 <!-- Tarjeta de producto -->
-                <?php foreach ($productos as $item) { ?>
+                <?php foreach ($productos as $item): ?>
                     <div class="col-sm-6 col-md-4 col-lg-3">
-                        <a href="URL_DESTINO_3" class="text-decoration-none">
-                            <div class="tarjeta-productos">
-                                <div class="etiquetaPrecioProductos"><?= $item->getPrecio() ?></div>
-                                <img src="<?= $item->getUrl_imagen() ?>" class="img-fluid imagen-productos" alt="40px">
-                                <p class="nombre-productos"><?= $item->getNombre() ?></p>
-                            </div>
-                        </a>
+                        <form action="?controller=carrito&action=agregarAlCarrito" method="POST" id="form-<?= $item->getId(); ?>">
+                            <!-- Datos del producto como campos ocultos -->
+                            <input type="hidden" name="id" value="<?= $item->getId(); ?>">
+                        </form>
+                        <div 
+                            class="tarjeta-productos" 
+                            style="cursor: pointer;" 
+                            onclick="document.getElementById('form-<?= $item->getId(); ?>').submit();"
+                        >
+                            <div class="etiquetaPrecioProductos"><?= number_format($item->getPrecio(), 2); ?> €</div>
+                            <img src="<?= $item->getUrl_imagen(); ?>" class="img-fluid imagen-productos" alt="Producto" style="max-height: 150px; object-fit: cover;">
+                            <p class="nombre-productos"><?= $item->getNombre(); ?></p>
+                        </div>
                     </div>
-                <?php } ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

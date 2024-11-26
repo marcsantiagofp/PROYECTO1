@@ -66,6 +66,33 @@ class ProductoDAO{
         return $categoria;
     }
 
+    public static function getCategoriaByProductoId($id_producto) {
+        // Conectar a la base de datos
+        $con = DataBase::connect();
+        
+        // Consulta para obtener la categoría del producto mediante el id del producto
+        $stmt = $con->prepare("
+            SELECT c.id, c.nombre
+            FROM CATEGORIA c
+            INNER JOIN PRODUCTO p ON c.id = p.id_categoria
+            WHERE p.id = ?
+        ");
+        $stmt->bind_param("i", $id_producto);
+        $stmt->execute();
+        
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        $categoria = $result->fetch_assoc();
+        
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+        
+        // Retornar la categoría
+        return $categoria;
+    }
+    
+
     public static function getTiposPorCategoria($id_categoria) {
         $con = DataBase::connect();
         $stmt = $con->prepare("
@@ -127,6 +154,28 @@ class ProductoDAO{
         // Retornar la lista de productos
         return $productos;
     }    
+
+    //funcion que busque losp productos por id ponerla aqui
+    public static function getProductoById($id_producto) {
+        // Conectar a la base de datos
+        $con = DataBase::connect();
+        
+        // Preparar la consulta SQL
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO WHERE id = ?");
+        $stmt->bind_param("i", $id_producto);
+        $stmt->execute();
+        
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        $producto = $result->fetch_object("Producto");
+        
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+        
+        // Retornar el producto
+        return $producto;
+    }  
 }
 
 ?>

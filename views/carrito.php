@@ -15,9 +15,9 @@
     <!-- Cabecera -->
     <header class="header py-3 px-4 bg-white">
         <div class="d-flex justify-content-between align-items-center">
-            <a href="aproductos.php" class="text-dark fw-bold" style="font-size: 14px;">&lt; CONTINUAR COMPRANDO</a>
+            <a href="?controller=producto&action=home" class="text-dark fw-bold" style="font-size: 14px;">&lt; CONTINUAR COMPRANDO</a>
             <div class="header-logo d-flex align-items-center">
-                <a href="/PROYECTO1/views/home.php"><img src="/PROYECTO1/images/logoPrincipal.png" width="170" class="me-2"></a>
+                <a href="?controller=producto&action=home"><img src="/PROYECTO1/images/logoPrincipal.png" width="170" class="me-2"></a>
             </div>
             <div class="header-links d-flex align-items-center">
                 <div class="iconos d-flex align-items-center">
@@ -56,72 +56,59 @@
             <!-- Sección izquierda: Lista de productos -->
             <div class="col-md-8">
                 <div class="row caractCarrito">
-                    <div class="col-md-6">PRODUCTO</div>
-                    <div class="col-md-3 text-center">CANTIDAD</div>
-                    <div class="col-md-3 text-end">PRECIO TOTAL</div>
+                    <div class="col-md-4 text-center">PRODUCTO</div>
+                    <div class="col-md-4 text-center">CANTIDAD</div>
+                    <div class="col-md-4 text-center">PRECIO TOTAL</div>
                 </div>
-                <div class="card mb-3 rounded-0"> <!-- Se añade rounded-0 -->
-                    <!-- Producto - Enviado por DecathlonEats -->
-                    <div class="container separadorProductos">
-                        <div class="row align-items-center p-3">
-                            <div class="col-md-12 text-muted">
-                                Vendido y enviado por
-                                <img src="/PROYECTO1/images/logoPrincipal.png" width="150" class="ms-2">
-                            </div>
-                        </div>
+
+                <?php if (empty($_SESSION['carrito'])): ?>
+                    <div class="mensaje-carrito-vacio">
+                        Tu carrito está vacío.
                     </div>
-                    <!-- PRODUCTOS COMPRADOS -->
-                    <div class="card-body">
-                        <!-- Producto 1 -->
+                <?php else: ?>
+                    <?php foreach ($_SESSION['carrito'] as $producto): ?>
                         <div class="d-flex align-items-center justify-content-between mb-4 separadorLineaCarrito">
-                            <div class="d-flex align-items-center">
-                                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" alt="Big King XXL" class="img-fluid" width="100">
+                            <!-- Producto y nombre -->
+                            <div class="d-flex align-items-center flex-grow-1">
+                                <img src="<?= $producto['imagen'] ?>" class="img-fluid" width="100">
                                 <div class="ms-3">
-                                    <p class="mb-1 fw-bold">Big King® XXL</p>
-                                    <p class="mb-0">Personalizaciones:<br>- Sin pepinillos<br>+ Queso</p>
+                                    <p class="mb-1 fw-bold"><?= $producto['nombre'] ?></p>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-outline-secondary btn-sm">-</button>
-                                <input type="text" value="1" class="form-control text-center mx-2" style="width: 50px;">
-                                <button class="btn btn-outline-secondary btn-sm">+</button>
+
+                            <!-- Cantidad -->
+                            <div class="d-flex justify-content-center align-items-center col-md-4">
+                                <form action="carrito.php" method="POST" class="d-flex align-items-center">
+                                    <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                                    <button class="btn btn-outline-secondary btn-sm" type="submit" name="accion" value="restar">-</button>
+                                    <input type="text" name="cantidad" value="<?= $producto['cantidad'] ?>" class="form-control text-center mx-2" style="width: 50px;" readonly>
+                                    <button class="btn btn-outline-secondary btn-sm" type="submit" name="accion" value="sumar">+</button>
+                                </form>
                             </div>
-                            <p class="mb-0 fw-bold">4,99€</p>
+
+                            <!-- Precio total -->
+                            <div class="d-flex justify-content-center align-items-center col-md-4">
+                                <p class="mb-0 fw-bold"><?= $producto['precio'] * $producto['cantidad'] ?>€</p>
+                            </div>
                         </div>
-                        <!-- Producto 2 -->
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="/PROYECTO1/images/PRODUCTOS/Ternara.svg" alt="King Cheetos" class="img-fluid" width="100">
-                                <div class="ms-3">
-                                    <p class="mb-1 fw-bold">King Cheetos</p>
-                                    <p class="mb-0">Personalizaciones:<br>+ Cheetos</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-outline-secondary btn-sm">-</button>
-                                <input type="text" value="2" class="form-control text-center mx-2" style="width: 50px;">
-                                <button class="btn btn-outline-secondary btn-sm">+</button>
-                            </div>
-                            <p class="mb-0 fw-bold">18,98€</p>
-                        </div>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
 
             <!-- Sección derecha: Resumen del pedido -->
             <div class="col-md-4">
-                <div class="card rounded-0"> <!-- Se añade rounded-0 -->
+                <div class="card rounded-0">
                     <div class="card-body">
                         <div class="d-flex separadorLineaCarrito">
-                            <p class="mb-0 col-md-10">Subtotal (3 artículos)</p>
-                            <p class="fw-bold col-md-2">23,97€</p>
+                            <p class="mb-0 col-md-10">Subtotal (<?= count($_SESSION['carrito']) ?> artículos)</p>
+                            <p class="fw-bold col-md-2"><?= array_sum(array_column($_SESSION['carrito'], 'precio')) ?>€</p>
                         </div>
                         <div class="d-flex separadorLineaCarrito mb-3">
-                        <p class="text-muted mt-3">Envío de 3,50 para pedidos de menos de 20€</p>
+                            <p class="text-muted mt-3">Envío de 3,50 para pedidos de menos de 20€</p>
                         </div>
                         <div class="d-flex">
                             <p class="fw-bold col-md-10">TOTAL</p>
-                            <p class="fw-bold col-md-2">23,97€</p>
+                            <p class="fw-bold col-md-2"><?= array_sum(array_column($_SESSION['carrito'], 'precio')) + 3.5 ?>€</p>
                         </div>
                         <button type="button" class="botonesCarrito">COMENZAR PEDIDO !!</button>
                         <input type="text" class="form-control mb-3" placeholder="Introduce código promocional">
@@ -146,7 +133,7 @@
         </div>
     </div>
 
-    <!-- SRIPT BOOTSTRAP -->
+    <!-- SCRIPT BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
