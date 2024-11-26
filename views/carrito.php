@@ -78,10 +78,22 @@
 
                             <!-- Cantidad -->
                             <div class="d-flex justify-content-center align-items-center col-md-4">
-                                <form action="carrito.php" method="POST" class="d-flex align-items-center">
+
+                                <!-- Formulario para eliminar o restar la cantidad -->
+                                <form action="?controller=carrito&action=eliminarDelCarrito" method="POST" class="d-flex align-items-center">
                                     <input type="hidden" name="id" value="<?= $producto['id'] ?>">
-                                    <button class="btn btn-outline-secondary btn-sm" type="submit" name="accion" value="restar">-</button>
-                                    <input type="text" name="cantidad" value="<?= $producto['cantidad'] ?>" class="form-control text-center mx-2" style="width: 50px;" readonly>
+                                    <input type="hidden" name="accion" value="restar"> <!-- Añadido para identificar que es restar -->
+                                    <!-- Botón Restar (Llama a la acción de reducir la cantidad) -->
+                                    <button class="btn btn-outline-secondary btn-sm" type="submit">-</button>
+                                </form>
+
+                                <!-- Campo de cantidad (solo lectura) -->
+                                <input type="text" name="cantidad" value="<?= $producto['cantidad'] ?>" class="form-control text-center mx-2" style="width: 50px;" readonly>
+
+                                <!-- Formulario para sumar la cantidad -->
+                                <form action="?controller=carrito&action=agregarCantidadCarrito" method="POST" class="d-flex align-items-center">
+                                    <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                                    <!-- Botón Sumar (Llama a la acción de agregar cantidad) -->
                                     <button class="btn btn-outline-secondary btn-sm" type="submit" name="accion" value="sumar">+</button>
                                 </form>
                             </div>

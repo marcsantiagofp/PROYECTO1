@@ -13,6 +13,11 @@ class CarritoController {
         }
     }
 
+    // Acción para ver el carrito
+    public function verCarrito() {
+        include_once 'views/carrito.php'; // Aquí se mostrará la vista del carrito
+    }
+
     // Acción para agregar un producto al carrito
     public function agregarAlCarrito() {
         self::iniciarCarrito();
@@ -52,47 +57,48 @@ class CarritoController {
         }
     }
 
-    // Acción para eliminar un producto del carrito
+    // Acción para eliminar o reducir la cantidad de un producto
     public function eliminarDelCarrito() {
-        if (isset($_GET['id'])) {
-            $producto_id = $_GET['id'];
+        if (isset($_POST['id'])) { // Cambiar de GET a POST
+            $producto_id = $_POST['id']; // Obtener el ID del producto a modificar
             foreach ($_SESSION['carrito'] as $index => $producto) {
                 if ($producto['id'] == $producto_id) {
-                    unset($_SESSION['carrito'][$index]); // Elimina el producto del carrito
-                    break;
-                }
-            }
-            // Redirige al carrito
-            header("Location: ?controller=carrito&action=verCarrito");
-            exit();
-        }
-    }
-
-    // Acción para ver el carrito
-    public function verCarrito() {
-        include_once 'views/carrito.php'; // Aquí se mostrará la vista del carrito
-    }
-
-    // Acción para actualizar la cantidad de un producto en el carrito
-    public function actualizarCantidad() {
-        if (isset($_POST['id']) && isset($_POST['cantidad'])) {
-            $producto_id = $_POST['id'];
-            $cantidad = $_POST['cantidad'];
-
-            foreach ($_SESSION['carrito'] as &$producto) {
-                if ($producto['id'] == $producto_id) {
-                    // Verifica que la cantidad no sea menor a 1
-                    if ($cantidad >= 1) {
-                        $producto['cantidad'] = $cantidad; // Actualiza la cantidad
+                    // Reducir la cantidad
+                    if ($_SESSION['carrito'][$index]['cantidad'] > 1) {
+                        $_SESSION['carrito'][$index]['cantidad']--; // Disminuir la cantidad
+                    } else {
+                        // Eliminar el producto si la cantidad es 1 o 0
+                        unset($_SESSION['carrito'][$index]);
                     }
                     break;
                 }
             }
+    
+            // Reindexar el array para eliminar posibles huecos
+            $_SESSION['carrito'] = array_values($_SESSION['carrito']);
+    
+            // Redirige al carrito después de la eliminación o ajuste
+            header("Location: ?controller=carrito&action=verCarrito");
+            exit();
         }
-        
-        // Redirige nuevamente al carrito
-        header("Location: ?controller=carrito&action=verCarrito");
-        exit();
+    }
+    
+
+    // Acción para aumentar la cantidad de un producto en el carrito
+    public function agregarCantidadCarrito() {
+        if (isset($_POST['id'])) {
+            $producto_id = $_POST['id'];
+            foreach ($_SESSION['carrito'] as $index => $producto) {
+                if ($producto['id'] == $producto_id) {
+                    // Incrementar la cantidad
+                    $_SESSION['carrito'][$index]['cantidad']++;
+                    break;
+                }
+            }
+            // Redirige al carrito después de agregar la cantidad
+            header("Location: ?controller=carrito&action=verCarrito");
+            exit();
+        }
     }
 }
 ?>
