@@ -7,7 +7,7 @@ class productoController{
     public static function home() {
         $recomendados = ProductoDAO::getRecomendados();
         $categorias = ProductoDAO::getSeccionCategorias();
-        $bebidas = ProductoDAO::getSeccionBebidas();
+        $postres = ProductoDAO::getSeccionBebidas();
         $view = 'views/home.php';
         include_once 'views/main.php';
     }

@@ -43,16 +43,16 @@
     <div class="row me-12">
         <!-- Columna de bebidas con margen a la derecha -->
         <div class="col-6">
-            <?php include_once 'assets/cardBebidas.php' ?>
+            <?php include_once 'assets/cardPostres.php' ?>
         </div>
 
         <!-- Columna de imagen grande a la derecha -->
         <div class="col-6 d-flex align-items-center">
             <div class="col-12 position-relative quintaSeccion">
-                <img src="/PROYECTO1/images/SECCION5HOME.svg" width="62%" class="img-fluid">
-                <a href="?controller=producto&action=bebidas" class="etiquetaComprarBebidas">Ver Productos</a>
+                <img src="/PROYECTO1/images/SECCION5HOME.svg" width="83%" class="img-fluid">
+                <a href="?controller=producto&action=bebidas" class="etiquetaComprarPostres">Ver Productos</a>
             </div>
-        </div>             
+        </div>      
     </div>
 </div>
 </main>

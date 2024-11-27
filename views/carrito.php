@@ -111,32 +111,73 @@
             <div class="col-md-4">
                 <div class="card rounded-0">
                     <div class="card-body">
+                    <!-- Subtotal -->
                         <div class="d-flex separadorLineaCarrito">
-                            <p class="mb-0 col-md-10">Subtotal (<?= count($_SESSION['carrito']) ?> artículos)</p>
-                            <p class="fw-bold col-md-2"><?= array_sum(array_column($_SESSION['carrito'], 'precio')) ?>€</p>
+                            <?php
+                            $subtotal = 0;
+                            $totalArticulos = 0;
+
+                            // Calcular subtotal y total de artículos
+                            foreach ($_SESSION['carrito'] as $producto) {
+                                $subtotal += $producto['precio'] * $producto['cantidad']; // Precio total por producto
+                                $totalArticulos += $producto['cantidad']; // Cantidad total de artículos
+                            }
+                            ?>
+                            <p class="mb-0 col-md-10">Subtotal (<?= $totalArticulos ?> artículos)</p>
+                            <p class="fw-bold col-md-2"><?= number_format($subtotal, 2) ?>€</p>
                         </div>
+
+                        <!-- Mensaje de envío -->
                         <div class="d-flex separadorLineaCarrito mb-3">
-                            <p class="text-muted mt-3">Envío de 3,50 para pedidos de menos de 20€</p>
+                            <p class="text-muted mt-3">
+                                Envío de 3,50 para pedidos de menos de 20€
+                            </p>
                         </div>
+
+                        <!-- Total con envío -->
                         <div class="d-flex">
+                            <?php
+                            // Calcular el coste de envío
+                                // Envío gratis si el subtotal es mayor o igual a 20€ pero mayor a 0 es decir que hay algun producto
+                                if ($subtotal < 20 and $subtotal > 0) {
+                                    $envio = 3.50;
+                                } else {
+                                    $envio = 0;
+                                }
+                                //Total de los prodctos
+                                $total = $subtotal + $envio; // Total con el envío
+                            ?>
                             <p class="fw-bold col-md-10">TOTAL</p>
-                            <p class="fw-bold col-md-2"><?= array_sum(array_column($_SESSION['carrito'], 'precio')) + 3.5 ?>€</p>
+                            <p class="fw-bold col-md-2"><?= number_format($total, 2) ?>€</p>
                         </div>
+
+                        <!-- Botones -->
                         <button type="button" class="botonesCarrito">COMENZAR PEDIDO !!</button>
                         <input type="text" class="form-control mb-3" placeholder="Introduce código promocional">
                         <button type="button" class="botonesCarrito">AÑADIR CÓDIGO</button>
                         <hr>
-                        <div class="d-flex">
-                            <p class="text-center text-muted">Pago seguro con:</p>
-                            <div class="d-flex justify-content-center">
-                                <img src="visa.png" alt="Visa" width="40" class="mx-1">
-                                <img src="paypal.png" alt="PayPal" width="40" class="mx-1">
-                                <img src="applepay.png" alt="Apple Pay" width="40" class="mx-1">
+
+                        <!-- Métodos de pago y entrega -->
+                        <div class="d-flex justify-content-between">
+                            <!-- Métodos de pago alineados a la derecha -->
+                            <div class="d-flex flex-column align-items-end">
+                                <p class="fw-bold">Pago seguro con:</p>
+                                <div class="d-flex">
+                                    <img src="/PROYECTO1/images/CARRITO/pago.svg" class="img-fluid">
+                                    <!-- <i class="bi bi-credit-card" style="font-size: 40px;" title="Visa"></i>
+                                    <i class="bi bi-paypal" style="font-size: 40px;" title="PayPal"></i>
+                                    <i class="bi bi-apple" style="font-size: 40px;" title="Apple Pay"></i> -->
+                                </div>
                             </div>
-                            <p class="text-center text-muted mt-3">Métodos de entrega:</p>
-                            <div class="d-flex justify-content-center">
-                                <img src="glovo.png" alt="Glovo" width="40" class="mx-1">
-                                <img src="ubereats.png" alt="Uber Eats" width="40" class="mx-1">
+
+                            <!-- Métodos de entrega alineados a la izquierda -->
+                            <div class="d-flex flex-column align-items-start">
+                                <p class="fw-bold">Métodos de entrega:</p>
+                                <div class="d-flex">
+                                    <img src="/PROYECTO1/images/CARRITO/entrega.svg" class="img-fluid">
+                                    <!-- <i class="bi bi-truck" style="font-size: 40px;" title="Glovo"></i>
+                                    <i class="bi bi-truck" style="font-size: 40px;" title="Uber Eats"></i> -->
+                                </div>
                             </div>
                         </div>
                     </div>

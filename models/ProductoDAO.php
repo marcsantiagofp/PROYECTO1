@@ -44,13 +44,13 @@ class ProductoDAO{
         $stmt->execute();
         $result = $stmt->get_result();
             
-        $bebidas=[];
+        $postres=[];
         while($producto = $result->fetch_object("Producto")){
-            $bebidas[] = $producto;
+            $postres[] = $producto;
         }
         
         $con->close();
-        return $bebidas;
+        return $postres;
     }
 
     public static function getCategoria($id_categoria) {

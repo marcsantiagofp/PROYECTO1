@@ -15,6 +15,7 @@ class CarritoController {
 
     // Acción para ver el carrito
     public function verCarrito() {
+        self::iniciarCarrito();
         include_once 'views/carrito.php'; // Aquí se mostrará la vista del carrito
     }
 

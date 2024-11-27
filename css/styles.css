@@ -26,7 +26,7 @@ button:hover,
 .buscar-btn:hover,
 .etiquetaOferta:hover,
 .etiquetaComprar:hover,
-.etiquetaComprarBebidas:hover,
+.etiquetaComprarPostres:hover,
 .botonesCarrito:hover {
     filter: brightness(0.75); /* Oscurece el fondo un poco */
     transition: filter 0.1s ease; /* Suaviza la transición */
@@ -35,7 +35,7 @@ button:hover,
 /* Subrayar nombres al pasar el cursor sobre el div contenedor */
 .tarjeta-productos:hover .nombre-productos,
 .nombre-categorias:hover,
-.quintaSeccion:hover .nombreBebidas{
+.quintaSeccion:hover .nombrePostres{
     text-decoration: underline;
     text-decoration-color: black;
     transition: text-decoration-color 0.3s ease; /* Suaviza la transición */
@@ -210,7 +210,7 @@ button:hover,
         border: 1px solid #f2f2f2;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
-        padding: 20px;
+        padding: 20px 20px 0px 20px;
         background-color: white;
     }
 
@@ -290,7 +290,7 @@ button:hover,
         position: absolute;
     }
 
-    .etiquetaPrecioBebidas {
+    /* .etiquetaPrecioPostres {
         position: absolute;
         top: 130px;
         left: 20px;
@@ -301,19 +301,19 @@ button:hover,
         font-size: 14px;
     }
     
-    .nombreBebidas {
+    .nombrePostres {
         position: absolute;
         top: 165px;
         left: 22px;
         color: black;
         font-size: 14px;
         font-weight: bold;
-    }
+    } */
     
-    .etiquetaComprarBebidas {
+    .etiquetaComprarPostres {
         position: absolute;
-        top: 370px;
-        left: 130px;
+        top: 450px;
+        left: 75px;
         background-color: #3643BA;
         color: white;
         font-weight: bold;
