@@ -58,12 +58,14 @@
                         </div>
                         </a>
                         <a href="?controller=carrito&action=verCarrito">
-                        <div class="icono d-flex flex-column align-items-center" style="color: #3643BA;">
-                            <span class="icono-img"><i class="bi bi-cart-check"></i></span> <!-- Mi cesta -->
-                            <span class="text-nowrap">MI CESTA</span>
-                        </div>
+                            <div class="icono d-flex flex-column align-items-center 
+                                <?php echo isset($_SESSION['carrito']) ? 'carrito-animado' : ''; ?>" 
+                                style="color: #3643BA;">
+                                <span class="icono-img"><i class="bi bi-cart-check"></i></span> <!-- Mi cesta -->
+                                <span class="text-nowrap">MI CESTA</span>
+                            </div>
                         </a>
-                    </div>                           
+                    </div>                      
                 </div>
                 
                 <!-- Menú de navegación desplegable -->

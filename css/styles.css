@@ -430,3 +430,53 @@ body {
     text-align: center;
     font-weight: bold;
 }
+
+/* DENTRO PRODUCTOS */
+
+/* Espaciado general */
+.container {
+    margin-top: 50px; /* Aumenta el margen superior entre el header y el contenido */
+}
+
+/* Estilo del precio */
+.precioDentroProductos {
+    display: inline-block; /* Evita que se estire como un div completo */
+    background-color: yellow;
+    color: black;
+    font-weight: bold;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+/* Botón de comprar */
+.botonComprarProductos {
+    background-color: #3643BA;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 10px 10px;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.botonComprarProductos:hover {
+    background-color: #0056b3; /* Cambia el color al pasar el ratón */
+}
+
+/* OTROS */
+
+/* Animación de movimiento para el carrito */
+@keyframes animarCarrito {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Clase para aplicar la animación */
+.carrito-animado {
+    animation: animarCarrito 0.5s ease;
+}

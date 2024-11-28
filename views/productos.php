@@ -6,6 +6,6 @@
     <title>Productos</title>
 </head>
 <body>
-    <?php include_once  $paginaMostrar ?>
+    <?php include_once  'assets/cardProductos.php' ?>
 </body>
 </html>

@@ -30,11 +30,29 @@ class productoController{
     
         // Establecer las vistas a mostrar
         $view = 'views/productos.php';
-        $paginaMostrar = 'assets/cardProductos.php';
     
         // Incluir la vista principal
         include_once 'views/main.php';
     }
-    
+
+    // Ver detalles de un producto
+    public static function verDetalles() {
+        // Obtener el ID del producto desde la URL
+        $id_producto = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+        // Usar el método getProductoById para obtener el producto
+        $producto = ProductoDAO::getProductoById($id_producto);
+
+        // Si el producto no existe, no hacer nada
+        if (!$producto) {
+            return;
+        }
+
+        // Cargar la vista para mostrar los detalles del producto
+        $view = 'views/detalleProducto.php';
+        
+        // Pasar el producto a la vista
+        include_once 'views/main.php';
+    }
 }
 ?>
