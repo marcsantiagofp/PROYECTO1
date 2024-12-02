@@ -2,6 +2,7 @@
 include_once("config/parameters.php");
 include_once("controllers/productoController.php");
 include_once("controllers/carritoController.php");
+include_once("controllers/usuarioController.php");
 
 if (!isset($_GET['controller'])) {
     header("Location:" . url_base . "?controller=producto");

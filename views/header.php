@@ -51,7 +51,7 @@
                             <span class="text-nowrap">TIENDA</span>
                         </div>
                         </a>
-                        <a href="/tienda">
+                        <a href="?controller=usuario&action=mostrarFormulario">
                         <div class="icono d-flex flex-column align-items-center">   
                             <span class="icono-img"><i class="bi bi-person-circle"></i></span> <!-- Mi cuenta -->
                             <span class="text-nowrap">MI CUENTA</span>
