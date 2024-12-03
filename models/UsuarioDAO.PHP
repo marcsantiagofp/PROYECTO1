@@ -7,8 +7,32 @@ class UsuarioDAO {
     // Obtener usuario por email
     public static function getUsuarioByEmail($email) {
         $db = DataBase::connect();
-        $stmt = $db->prepare("SELECT * FROM usuario WHERE email = ?");
+        $stmt = $db->prepare("SELECT * FROM USUARIO WHERE email = ?");
         $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($row = $result->fetch_assoc()) {
+            // Crear un objeto Usuario con los datos de la base de datos
+            $usuario = new Usuario();
+            $usuario->setId($row['id'])
+                    ->setNombre($row['nombre'])
+                    ->setEmail($row['email'])
+                    ->setContraseña($row['contraseña'])
+                    ->setTelefono($row['telefono'])
+                    ->setDireccion($row['direccion'])
+                    ->setMetodoPago($row['metodo_pago'])
+                    ->setRol($row['rol']);
+            return $usuario;  // Devuelve el objeto Usuario
+        }
+        return null;  // Si no se encuentra el usuario
+    }
+
+    // Obtener usuario por ID
+    public static function getUsuarioById($id) {
+        $db = DataBase::connect();
+        $stmt = $db->prepare("SELECT * FROM USUARIO WHERE id = ?");
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -17,10 +41,14 @@ class UsuarioDAO {
             $usuario->setId($row['id'])
                     ->setNombre($row['nombre'])
                     ->setEmail($row['email'])
-                    ->setContraseña($row['contraseña']);
+                    ->setContraseña($row['contraseña'])
+                    ->setTelefono($row['telefono'])
+                    ->setDireccion($row['direccion'])
+                    ->setMetodoPago($row['metodo_pago'])
+                    ->setRol($row['rol']);
             return $usuario;
         }
-        return null;
+        return null; // Si no se encuentra el usuario
     }
 
     // Insertar nuevo usuario
@@ -40,5 +68,5 @@ class UsuarioDAO {
     
         return $stmt->execute();
     }
-    
 }
+?>

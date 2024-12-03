@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <?php if (!($view === 'views/carrito.php' || $view === 'views/inicioSesion.php')): ?>
+    <?php if (!($view === 'views/carrito.php' || $view === 'views/inicioSession.php' || $view === 'views/datosUsuario.php')): ?>
         <!-- Header -->
         <?php include_once 'header.php'; ?>
     <?php endif; ?>
@@ -19,7 +19,7 @@
     <!-- Vista -->
     <?php include_once $view; ?>
 
-    <?php if (!($view === 'views/carrito.php' || $view === 'views/inicioSesion.php')): ?>
+    <?php if (!($view === 'views/carrito.php' || $view === 'views/inicioSession.php' || $view === 'views/datosUsuario.php')): ?>
         <!-- Footer -->
         <?php include_once 'footer.php'; ?>
     <?php endif; ?>

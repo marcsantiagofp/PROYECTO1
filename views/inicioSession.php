@@ -40,13 +40,25 @@
       <div id="inicioSesion" class="formulario">
         <div class="text-start mt-2">
           <h2 class="h3 mb-4">Bienvenido Decathloner!!</h2>
-          <form>
+
+          <!-- Mensaje de error -->
+          <?php if (isset($_GET['error'])): ?>
+              <div class="alert alert-danger text-center">
+                  <?php if ($_GET['error'] === 'usuario_no_encontrado'): ?>
+                      Usuario no reconocido. Por favor, verifica tu email.
+                  <?php elseif ($_GET['error'] === 'credenciales_invalidas'): ?>
+                      Contraseña incorrecta. Inténtalo nuevamente.
+                  <?php endif; ?>
+              </div>
+          <?php endif; ?>
+
+          <form action="?controller=usuario&action=iniciarSesion" method="POST">
             <div class="mb-3">
-              <input type="email" class="introducirDatosFormulario w-100" placeholder="Introduce tu correo electrónico" required>
-              <input type="password" class="introducirDatosFormulario w-100" placeholder="Introduce tu contraseña" required>
-              <button class="botonIniciarSession">Iniciar sesión</button>
+                <input type="email" name="email" class="introducirDatosFormulario w-100" placeholder="Introduce tu correo electrónico" required>
+                <input type="password" name="contraseña" class="introducirDatosFormulario w-100" placeholder="Introduce tu contraseña" required>
+                <button type="submit" class="botonIniciarSession">Iniciar sesión</button>
             </div>
-          </form>
+        </form>
 
           <div class="mt-3" style="margin-top: 0;">
             <p style="margin-bottom: 0; font-weight: bold;">¿Aún no tienes Cuenta Decathloneats?</p>
@@ -59,27 +71,21 @@
     <div id="registro" class="formulario" style="display: none;">
       <div class="text-start mt-2">
         <h2 class="h3 mb-4" style="margin-top: 100px;">Registrarse</h2>
-        <form>
+        <form action="?controller=usuario&action=registrar" method="POST">
           <div class="mb-3">
-            <!-- Nombre -->
-            <input type="text" class="introducirDatosFormulario w-100" placeholder="Introduce tu nombre" required>
-
-            <!-- Email -->
-            <input type="email" class="introducirDatosFormulario w-100" placeholder="Introduce tu correo electrónico" required>
-
-            <!-- Contraseña -->
-            <input type="password" class="introducirDatosFormulario w-100" placeholder="Introduce tu contraseña" required>
-
-            <!-- Dirección -->
-            <input type="text" class="introducirDatosFormulario w-100" placeholder="Introduce tu dirección (opcional)">
-
-            <!-- Teléfono -->
-            <input type="tel" class="introducirDatosFormulario w-100" placeholder="Introduce tu teléfono (opcional)" pattern="[0-9]{9}">
-            
-            <!-- Botón de registro -->
-            <button class="botonIniciarSession">Registrarse</button>
+              <!-- Nombre -->
+              <input type="text" name="nombre" class="introducirDatosFormulario w-100" placeholder="Introduce tu nombre" required>
+              <!-- Email -->
+              <input type="email" name="email" class="introducirDatosFormulario w-100" placeholder="Introduce tu correo electrónico" required>
+              <!-- Contraseña -->
+              <input type="password" name="contraseña" class="introducirDatosFormulario w-100" placeholder="Introduce tu contraseña" required>
+              <!-- Dirección -->
+              <input type="text" name="direccion" class="introducirDatosFormulario w-100" placeholder="Introduce tu dirección (opcional)">
+              <!-- Teléfono -->
+              <input type="tel" name="telefono" class="introducirDatosFormulario w-100" placeholder="Introduce tu teléfono (opcional)" pattern="[0-9]{9}">
+              <button type="submit" class="botonIniciarSession">Registrarse</button>
           </div>
-        </form>
+      </form>
         <div class="mt-3" style="margin-top: 0;">
           <p style="margin-bottom: 0; font-weight: bold;">¿Ya tienes una Cuenta Decathloneats?</p>
           <a href="#" style="color: #000000; text-decoration: underline;" onclick="cambiarAIniciarSesion()">Iniciar sesión</a>
