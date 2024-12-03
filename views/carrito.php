@@ -27,7 +27,7 @@
                             <span class="text-nowrap">AYUDA</span>
                         </div>
                     </a>
-                    <a href="/tienda" style="text-decoration: none;">
+                    <a href="?controller=usuario&action=mostrarFormulario" style="text-decoration: none;">
                         <div class="iconoCarrito d-flex flex-column align-items-center">
                             <span class="icono-img"><i class="bi bi-person-circle"></i></span> <!-- Mi cuenta -->
                             <span class="text-nowrap">MI CUENTA</span>

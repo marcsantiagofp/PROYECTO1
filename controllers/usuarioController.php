@@ -120,9 +120,14 @@ class UsuarioController {
     // Acción para cerrar sesión
     public function cerrarSesion() {
         session_start(); // Iniciar sesión si no está iniciada
-        session_unset(); // Limpiar todas las variables de sesión
-        session_destroy(); // Destruir la sesión
-        header("Location: ?controller=usuario&action=mostrarFormulario"); // Redirigir al formulario de login
+
+        // Eliminar solo la sesión del usuario
+        if (isset($_SESSION['usuario_id'])) {
+            unset($_SESSION['usuario_id']); // Eliminar la variable de sesión específica
+        }
+
+        // Redirigir al formulario de login
+        header("Location: ?controller=producto&action=home");
         exit;
     }
 }
