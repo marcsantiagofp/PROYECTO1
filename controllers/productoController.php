@@ -3,6 +3,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 include_once 'models/Producto.php';
 include_once 'models/ProductoDAO.php';
 include_once 'config/dataBase.php';
