@@ -52,10 +52,21 @@
                         </div>
                         </a>
                         <a href="?controller=usuario&action=mostrarFormulario">
-                        <div class="icono d-flex flex-column align-items-center">   
-                            <span class="icono-img"><i class="bi bi-person-circle"></i></span> <!-- Mi cuenta -->
-                            <span class="text-nowrap">MI CUENTA</span>
-                        </div>
+                            <div class="icono d-flex flex-column align-items-center">
+                                <span class="icono-img"><i class="bi bi-person-circle"></i></span>
+                                <span class="text-nowrap">
+                                    <?php
+                                    // Comprobar si el usuario ha iniciado sesión
+                                    if (isset($_SESSION['usuario_id'])) {
+                                        // Obtener el usuario desde la base de datos
+                                        $usuario = UsuarioDAO::getUsuarioById($_SESSION['usuario_id']);
+                                        echo htmlspecialchars($usuario->getNombre()); // Mostrar el nombre del usuario
+                                    } else {
+                                        echo "MI CUENTA"; // Texto predeterminado
+                                    }
+                                    ?>
+                                </span>
+                            </div>
                         </a>
                         <a href="?controller=carrito&action=verCarrito">
                             <div class="icono d-flex flex-column align-items-center 
