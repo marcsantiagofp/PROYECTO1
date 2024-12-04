@@ -80,7 +80,7 @@
               <!-- Contraseña -->
               <input type="password" name="contraseña" class="introducirDatosFormulario w-100" placeholder="Introduce tu contraseña" required>
               <!-- Dirección -->
-              <input type="text" name="direccion" class="introducirDatosFormulario w-100" placeholder="Introduce tu dirección (opcional)">
+              <input type="text" name="direccion" class="introducirDatosFormulario w-100" placeholder="Introduce tu dirección" required>
               <!-- Teléfono -->
               <input type="tel" name="telefono" class="introducirDatosFormulario w-100" placeholder="Introduce tu teléfono (opcional)" pattern="[0-9]{9}">
               <button type="submit" class="botonIniciarSession">Registrarse</button>
