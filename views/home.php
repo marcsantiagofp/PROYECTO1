@@ -49,7 +49,7 @@
         <!-- Columna de imagen grande a la derecha -->
         <div class="col-6 d-flex align-items-center">
             <div class="col-12 position-relative quintaSeccion">
-                <img src="/PROYECTO1/images/SECCION5HOME.svg" width="83%" class="img-fluid">
+                <img src="/PROYECTO1/images/SECCION5HOME.webp" width="83%" class="img-fluid">
                 <a href="?controller=producto&action=mostrarProductos&id=4" class="etiquetaComprarPostres">Ver Productos</a>
             </div>
         </div>      

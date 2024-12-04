@@ -17,7 +17,7 @@
                     <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
                 <div class="mt-3">
-                    <img src="/PROYECTO1/images/logoBlanco.webp" alt="DecathlonEats Logo" class="logoFooter">
+                    <img src="/PROYECTO1/images/logoBlanco.svg" alt="DecathlonEats Logo" class="logoFooter" width="230px">
                 </div>
             </div>
 

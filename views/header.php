@@ -34,10 +34,10 @@
                         <span class="text-nowrap" style="font-size: 11px;">MENU</span>
                     </button>
                     <a href="?controller=producto&action=home">
-                        <img src="/PROYECTO1/images/logoPrincipal.png" alt="DecathlonEats Logo" class="img-fluid logo">
+                        <img src="/PROYECTO1/images/logoPrincipal.svg" alt="DecathlonEats Logo" class="img-fluid logo">
                     </a>
-                    <input type="text" placeholder="Busca producto, ..." class="buscador">
-                    <button class="buscar-btn"><img src="/PROYECTO1/images/lupa.png" alt="DecathlonEats Logo" class="lupa"></button>
+                    <input type="text" placeholder="Busca productoa, ..." class="buscador">
+                    <button class="buscar-btn"><img src="/PROYECTO1/images/lupa.svg" alt="DecathlonEats Logo" class="lupa"></button>
                     <div class="iconos">
                         <a href="/tienda">
                             <div class="icono d-none d-lg-flex flex-column text-center">
