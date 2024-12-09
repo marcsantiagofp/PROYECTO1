@@ -17,7 +17,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <a href="?controller=producto&action=home" class="text-dark fw-bold" style="font-size: 14px;">&lt; CONTINUAR COMPRANDO</a>
             <div class="header-logo d-flex align-items-center">
-                <a href="?controller=producto&action=home"><img src="/PROYECTO1/images/logoPrincipal.png" width="170" class="me-2"></a>
+                <a href="?controller=producto&action=home"><img src="/PROYECTO1/images/logoPrincipal.svg" width="170" class="me-2"></a>
             </div>
             <div class="header-links d-flex align-items-center">
                 <div class="iconos d-flex align-items-center">
