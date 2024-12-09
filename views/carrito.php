@@ -10,6 +10,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS PERSONALIZADO -->
     <link rel="stylesheet" href="/PROYECTO1/css/styles.css">
+    <script>
+        function mostrarFormularioPago() {
+            var formularioPago = document.getElementById('formulario-pago');
+            
+            // Verificar si el carrito está vacío usando PHP para establecer la condición
+            var carritoVacio = <?php echo empty($_SESSION['carrito']) ? 'true' : 'false'; ?>;
+            
+            if (carritoVacio) {
+                alert('Tu carrito está vacío. No puedes realizar la compra.');
+            } else {
+                formularioPago.style.display = formularioPago.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Cabecera -->
@@ -138,13 +152,12 @@
                         <div class="d-flex">
                             <?php
                             // Calcular el coste de envío
-                                // Envío gratis si el subtotal es mayor o igual a 20€ pero mayor a 0 es decir que hay algun producto
                                 if ($subtotal < 20 and $subtotal > 0) {
                                     $envio = 3.50;
                                 } else {
                                     $envio = 0;
                                 }
-                                //Total de los prodctos
+                                //Total de los productos
                                 $total = $subtotal + $envio; // Total con el envío
                             ?>
                             <p class="fw-bold col-md-10">TOTAL</p>
@@ -152,31 +165,54 @@
                         </div>
 
                         <!-- Botones -->
-                        <button type="button" class="botonesCarrito">COMENZAR PEDIDO !!</button>
+                        <button type="button" class="botonesCarrito" onclick="mostrarFormularioPago()">COMENZAR PEDIDO !!</button>
                         <input type="text" class="form-control mb-3" placeholder="Introduce código promocional">
                         <button type="button" class="botonesCarrito">AÑADIR CÓDIGO</button>
                         <hr>
 
+                        <!-- Formulario de pago (inicialmente oculto) -->
+                        <div id="formulario-pago" style="display: none;">
+                            <form action="?controller=producto&action=home" method="POST">
+                                <div class="mt-3">
+                                    <label for="titular" class="form-label">Titular de la tarjeta</label>
+                                    <input type="text" id="titular" class="form-control" name="titular" placeholder="Nombre completo" required>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="numero-tarjeta" class="form-label">Número de tarjeta</label>
+                                    <input type="text" id="numero-tarjeta" class="form-control" name="numero_tarjeta" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="fecha-vencimiento" class="form-label">Fecha de vencimiento</label>
+                                    <input type="month" id="fecha-vencimiento" class="form-control" name="fecha_vencimiento" required>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" id="cvv" class="form-control" name="cvv" placeholder="XXX" required>
+                                </div>
+
+                                <!-- Línea separadora -->
+                                <hr>
+
+                                <!-- Botón para finalizar el pedido -->
+                                <form action="?controller=carrito&action=finalizarCompra" method="POST">
+                                    <button type="submit" class="botonesCarrito">FINALIZAR PEDIDO</button>
+                                </form>
+                            </form>
+                        </div>
+
                         <!-- Métodos de pago y entrega -->
                         <div class="d-flex justify-content-between">
-                            <!-- Métodos de pago alineados a la derecha -->
                             <div class="d-flex flex-column align-items-end">
                                 <p class="fw-bold">Pago seguro con:</p>
                                 <div class="d-flex">
                                     <img src="/PROYECTO1/images/CARRITO/pago.svg" class="img-fluid">
-                                    <!-- <i class="bi bi-credit-card" style="font-size: 40px;" title="Visa"></i>
-                                    <i class="bi bi-paypal" style="font-size: 40px;" title="PayPal"></i>
-                                    <i class="bi bi-apple" style="font-size: 40px;" title="Apple Pay"></i> -->
                                 </div>
                             </div>
 
-                            <!-- Métodos de entrega alineados a la izquierda -->
                             <div class="d-flex flex-column align-items-start">
                                 <p class="fw-bold">Métodos de entrega:</p>
                                 <div class="d-flex">
                                     <img src="/PROYECTO1/images/CARRITO/entrega.svg" class="img-fluid">
-                                    <!-- <i class="bi bi-truck" style="font-size: 40px;" title="Glovo"></i>
-                                    <i class="bi bi-truck" style="font-size: 40px;" title="Uber Eats"></i> -->
                                 </div>
                             </div>
                         </div>

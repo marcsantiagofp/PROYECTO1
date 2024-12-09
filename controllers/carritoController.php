@@ -105,5 +105,72 @@ class CarritoController {
             exit();
         }
     }
+
+    public function finalizarCompra() {
+        // Inicia el carrito en la sesión si no existe
+        self::iniciarCarrito();
+        
+        if (empty($_SESSION['carrito'])) {
+            // Si el carrito está vacío, redirigir a una página de error o mostrar un mensaje
+            echo "Tu carrito está vacío. No puedes realizar el pedido.";
+            return;
+        }
+
+        // Obtener el ID del usuario (suponiendo que ya está autenticado)
+        $usuario_id = $_SESSION['usuario_id']; // O la forma en que guardas el ID de usuario en la sesión
+
+        // Conectar a la base de datos
+        $con = DataBase::connect();
+
+        // Iniciar una transacción para asegurar la integridad de los datos
+        $con->begin_transaction();
+
+        try {
+            // 1. Crear un nuevo pedido en la tabla PEDIDO
+            $fecha_pedido = date('Y-m-d');
+            $precio_total = 0;
+            $cantidad_total = 0;
+            
+            // Calcular el precio total y la cantidad de productos
+            foreach ($_SESSION['carrito'] as $producto) {
+                $precio_total += $producto['precio'] * $producto['cantidad'];
+                $cantidad_total += $producto['cantidad'];
+            }
+
+            // Insertar en la tabla PEDIDO
+            $stmt = $con->prepare("INSERT INTO PEDIDO (fecha_pedido, precio_total_pedidos, cantidad_pedidos, id_cliente) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sdii", $fecha_pedido, $precio_total, $cantidad_total, $usuario_id);
+            $stmt->execute();
+            $numero_pedido = $stmt->insert_id; // Obtener el ID del pedido recién insertado
+
+            // 2. Insertar las líneas de pedido en la tabla LINEA_PEDIDO
+            foreach ($_SESSION['carrito'] as $producto) {
+                $precio_producto = $producto['precio'] * $producto['cantidad']; // Precio total por producto
+                $stmt = $con->prepare("INSERT INTO LINEA_PEDIDO (cantidad_productos, precio_productos, id_producto, numero_pedido) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("idii", $producto['cantidad'], $precio_producto, $producto['id'], $numero_pedido);
+                $stmt->execute();
+            }
+
+            // 3. Si se ha aplicado algún descuento, podrías añadirlo a la tabla LINEA_PEDIDO (opcional)
+            // Este paso depende de si el carrito contiene descuentos, si no, lo puedes omitir
+
+            // Si todo está bien, confirmar la transacción
+            $con->commit();
+
+            // Limpiar el carrito después de finalizar el pedido
+            unset($_SESSION['carrito']);
+            
+            // Redirigir a la página de confirmación del pedido o mostrar un mensaje de éxito
+            echo "Pedido realizado con éxito. El número de tu pedido es: $numero_pedido";
+
+        } catch (Exception $e) {
+            // Si ocurre un error, deshacer la transacción
+            $con->rollback();
+            echo "Error al realizar el pedido: " . $e->getMessage();
+        } finally {
+            // Cerrar la conexión
+            $con->close();
+        }
+    }
 }
 ?>
