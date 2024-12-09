@@ -2,7 +2,7 @@
 include_once 'config/dataBase.php';
 include_once 'models/Usuario.php';
 
-class UsuarioDAO {
+class UsuarioDAO{
 
     // Obtener usuario por email
     public static function getUsuarioByEmail($email) {

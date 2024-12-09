@@ -106,43 +106,60 @@ class CarritoController {
         }
     }
 
+    // Función para finalizar la compra
     public function finalizarCompra() {
-        // Inicia el carrito en la sesión si no existe
-        self::iniciarCarrito();
+        // Iniciar la sesión si no se ha hecho previamente
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         
+        // Inicia el carrito en la sesión si no existe
+        self::iniciarCarrito(); // Asegúrate de que esta función esté bien definida
+    
+        // Verificar si el carrito está vacío
         if (empty($_SESSION['carrito'])) {
-            // Si el carrito está vacío, redirigir a una página de error o mostrar un mensaje
-            echo "Tu carrito está vacío. No puedes realizar el pedido.";
+            // Si el carrito está vacío, mostrar una alerta y redirigir
+            echo "<script>alert('Tu carrito está vacío. No puedes realizar el pedido.');</script>";
+            echo "<script>window.location.href = '?controller=carrito&action=verCarrito';</script>";
             return;
         }
-
+    
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['usuario_id'])) {
+            // Si el usuario no está autenticado, mostrar una alerta y redirigir a la página de inicio de sesión
+            echo "<script>alert('Debes iniciar sesión para realizar un pedido.');</script>";
+            echo "<script>window.location.href = '?controller=usuario&action=mostrarFormulario';</script>";
+            return;
+        }
+    
+        // El resto del proceso para finalizar la compra...
         // Obtener el ID del usuario (suponiendo que ya está autenticado)
-        $usuario_id = $_SESSION['usuario_id']; // O la forma en que guardas el ID de usuario en la sesión
-
+        $usuario_id = $_SESSION['usuario_id']; 
+    
         // Conectar a la base de datos
         $con = DataBase::connect();
-
+    
         // Iniciar una transacción para asegurar la integridad de los datos
         $con->begin_transaction();
-
+    
         try {
             // 1. Crear un nuevo pedido en la tabla PEDIDO
             $fecha_pedido = date('Y-m-d');
             $precio_total = 0;
             $cantidad_total = 0;
-            
-            // Calcular el precio total y la cantidad de productos
+    
+            // Calcular el precio total y la cantidad total de productos
             foreach ($_SESSION['carrito'] as $producto) {
                 $precio_total += $producto['precio'] * $producto['cantidad'];
                 $cantidad_total += $producto['cantidad'];
             }
-
+    
             // Insertar en la tabla PEDIDO
             $stmt = $con->prepare("INSERT INTO PEDIDO (fecha_pedido, precio_total_pedidos, cantidad_pedidos, id_cliente) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("sdii", $fecha_pedido, $precio_total, $cantidad_total, $usuario_id);
             $stmt->execute();
             $numero_pedido = $stmt->insert_id; // Obtener el ID del pedido recién insertado
-
+    
             // 2. Insertar las líneas de pedido en la tabla LINEA_PEDIDO
             foreach ($_SESSION['carrito'] as $producto) {
                 $precio_producto = $producto['precio'] * $producto['cantidad']; // Precio total por producto
@@ -150,27 +167,35 @@ class CarritoController {
                 $stmt->bind_param("idii", $producto['cantidad'], $precio_producto, $producto['id'], $numero_pedido);
                 $stmt->execute();
             }
-
-            // 3. Si se ha aplicado algún descuento, podrías añadirlo a la tabla LINEA_PEDIDO (opcional)
-            // Este paso depende de si el carrito contiene descuentos, si no, lo puedes omitir
-
+    
+            // 3. Si hay descuentos aplicados, puedes agregarlos a la tabla LINEA_PEDIDO
+            // Esto dependería de cómo estés gestionando los descuentos en el carrito
+            if (isset($_SESSION['descuento']) && $_SESSION['descuento'] > 0) {
+                $descuento = $_SESSION['descuento']; // Asumiendo que tienes un descuento en la sesión
+                // Puedes manejar el descuento aquí si lo deseas
+                // Por ejemplo, restando el descuento del total
+                $precio_total -= $descuento;
+                // Si necesitas agregar esta información a la base de datos, puedes hacerlo en este punto
+            }
+    
             // Si todo está bien, confirmar la transacción
             $con->commit();
-
+    
             // Limpiar el carrito después de finalizar el pedido
             unset($_SESSION['carrito']);
-            
-            // Redirigir a la página de confirmación del pedido o mostrar un mensaje de éxito
-            echo "Pedido realizado con éxito. El número de tu pedido es: $numero_pedido";
-
+            unset($_SESSION['descuento']); // Limpiar el descuento si existiera
+    
+            // Mostrar mensaje de éxito y redirigir a la página de confirmación del pedido
+            echo "<script>alert('Pedido realizado con éxito. El número de tu pedido es: $numero_pedido');</script>";
+            echo "<script>window.location.href = '?controller=carrito&action=verCarrito';</script>";
+    
         } catch (Exception $e) {
             // Si ocurre un error, deshacer la transacción
             $con->rollback();
-            echo "Error al realizar el pedido: " . $e->getMessage();
+            echo "<script>alert('Error al realizar el pedido: " . $e->getMessage() . "');</script>";
         } finally {
             // Cerrar la conexión
             $con->close();
         }
-    }
+    }    
 }
-?>

@@ -20,7 +20,7 @@
         </a>
         <!-- Logo de Decathlon centrado -->
         <a href="?controller=producto&action=home" class="mx-auto">
-            <img src="/PROYECTO1/images/logoPrincipal.png" alt="Decathlon Logo" class="img-fluid" style="max-width: 170px;">
+            <img src="/PROYECTO1/images/logoPrincipal.svg" alt="Decathlon Logo" width="170">
         </a>
         </div>
     </header>

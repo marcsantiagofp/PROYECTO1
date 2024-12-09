@@ -50,40 +50,36 @@ class UsuarioController {
 
     // Acción para iniciar sesión
     public function iniciarSesion() {
-        // Verificar si se enviaron los datos desde el formulario
+        session_start(); // Asegúrate de que la sesión está iniciada
+        $errores = [];
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $contraseñaIngresada = $_POST['contraseña'];
     
-            // Buscar al usuario en la base de datos por su email
             $usuario = UsuarioDAO::getUsuarioByEmail($email);
     
-            // Validar si el usuario existe
             if (!$usuario) {
-                header("Location: ?controller=usuario&action=login&error=usuario_no_encontrado");
-                exit;
+                $_SESSION['error'] = 'usuario_no_encontrado'; // Almacena el error en la sesión
+            } else {
+                $contraseñaHash = $usuario->getContraseña();
+    
+                if (!password_verify($contraseñaIngresada, $contraseñaHash)) {
+                    $_SESSION['error'] = 'credenciales_invalidas';
+                }
             }
     
-            // Verificar la contraseña
-            // Acceder a la contraseña usando el método getContraseña() si $usuario es un objeto
-            $contraseñaHash = $usuario->getContraseña(); // Usamos el getter de la clase Usuario
-    
-            if (!password_verify($contraseñaIngresada, $contraseñaHash)) {
-                header("Location: ?controller=usuario&action=login&error=credenciales_invalidas");
+            if (!isset($_SESSION['error'])) {
+                $_SESSION['usuario_id'] = $usuario->getId();
+                header("Location: ?controller=producto&action=home");
                 exit;
             }
-    
-            // Iniciar sesión si las credenciales son correctas
-            // Guardamos el ID del usuario en la sesión
-            $_SESSION['usuario_id'] = $usuario->getId();
-    
-            header("Location: ?controller=producto&action=home");
-            exit;
         }
     
-        // Si no es un POST, redirigir al formulario de inicio de sesión
-        header("Location: ?controller=usuario&action=login");
-    }    
+        header("Location: ?controller=usuario&action=mostrarFormulario");
+        exit;
+    }
+    
 
     // Acción para registrar un nuevo usuario
     public function registrar() {

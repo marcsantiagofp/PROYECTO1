@@ -172,7 +172,7 @@
 
                         <!-- Formulario de pago (inicialmente oculto) -->
                         <div id="formulario-pago" style="display: none;">
-                            <form action="?controller=producto&action=home" method="POST">
+                            <form action="?controller=carrito&action=finalizarCompra" method="POST">
                                 <div class="mt-3">
                                     <label for="titular" class="form-label">Titular de la tarjeta</label>
                                     <input type="text" id="titular" class="form-control" name="titular" placeholder="Nombre completo" required>
@@ -194,9 +194,7 @@
                                 <hr>
 
                                 <!-- Botón para finalizar el pedido -->
-                                <form action="?controller=carrito&action=finalizarCompra" method="POST">
-                                    <button type="submit" class="botonesCarrito">FINALIZAR PEDIDO</button>
-                                </form>
+                                <button type="submit" class="botonesCarrito">FINALIZAR PEDIDO</button>
                             </form>
                         </div>
 
