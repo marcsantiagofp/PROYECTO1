@@ -119,6 +119,13 @@ class CarritoController {
         $precio_total_pedidos = 0;
         $cantidad_productos = 0;
 
+        // Verificar si existe una sesión iniciada
+        if (!isset($_SESSION['usuario_id'])) {
+            echo "<script>alert('Debes iniciar sesión para finalizar tu pedido.');</script>";
+            echo "<script>window.location.href = '?controller=usuario&action=mostrarFormulario';</script>";
+            return;
+        }
+
         // Calcular subtotal y total de productos
         foreach ($_SESSION['carrito'] as $producto) {
             $precio_total_pedidos += $producto['precio'] * $producto['cantidad'];
@@ -153,7 +160,7 @@ class CarritoController {
         $conexion->close();
 
         // Redirigir a la página de confirmación o mostrar mensaje
-        echo "<script>alert('Pedido finalizado con éxito.');</script>";
+        echo "<script>alert('Pedido enviado con éxito.');</script>";
         echo "<script>window.location.href = '?controller=pedido&action=confirmacion&id=$id_pedido';</script>";
     }
 }

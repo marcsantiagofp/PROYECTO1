@@ -191,7 +191,7 @@
                         </div>
 
                         <!-- Botones -->
-                        <button type="button" class="botonesCarrito" onclick="mostrarFormularioPago()">COMENZAR PEDIDO !!</button>
+                        <button type="button" class="botonesCarrito" onclick="mostrarFormularioPago()">COMENZAR PEDIDO</button>
                         <input type="text" class="form-control mb-3" placeholder="Introduce código promocional">
                         <button type="button" class="botonesCarrito">AÑADIR CÓDIGO</button>
                         <hr>
