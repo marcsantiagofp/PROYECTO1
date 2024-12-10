@@ -45,9 +45,9 @@
                             <div class="usuario">
                                 <div class="icono d-flex flex-column align-items-center">
                                     <!-- Icono del usuario -->
-                                    <span class="icono-img"><i class="bi bi-person-circle" style="font-size: 20px;"></i></span>
+                                    <span class="icono-img"><i class="bi bi-person-circle" style="font-size: 17px;"></i></span>
                                     <!-- Nombre o texto predeterminado -->
-                                    <span class="text-nowrap" style="margin-top: -5px;">
+                                    <span class="text-nowrap">
                                         <?php
                                         // Comprobar si el usuario ha iniciado sesión
                                         if (isset($_SESSION['usuario_id'])) {
