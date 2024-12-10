@@ -189,11 +189,7 @@
                                     <label for="cvv" class="form-label">CVV</label>
                                     <input type="text" id="cvv" class="form-control" name="cvv" placeholder="XXX" required>
                                 </div>
-
-                                <!-- Línea separadora -->
                                 <hr>
-
-                                <!-- Botón para finalizar el pedido -->
                                 <button type="submit" class="botonesCarrito">FINALIZAR PEDIDO</button>
                             </form>
                         </div>
