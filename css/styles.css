@@ -144,6 +144,53 @@ button:hover,
     font-size: 20px;
 }
 
+/* HOVER CUENTA */
+/* Menú desplegable */
+/* Asegúrate de que el contenedor del icono del usuario tenga posición relativa */
+.usuario {
+    position: relative;
+}
+
+/* Menú desplegable */
+.usuario-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Coloca el menú justo debajo del icono */
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Asegúrate de que el menú esté por encima de otros elementos */
+    width: 200px;
+    border-radius: 5px;
+}
+
+/* Asegúrate de que se muestra al hacer hover en el contenedor del usuario */
+.usuario:hover .usuario-menu {
+    display: block; /* Muestra el menú al pasar el ratón */
+}
+
+/* Estilo del menú */
+.usuario-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.usuario-menu ul li {
+    padding: 8px 16px;
+}
+
+.usuario-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-size: 14px;
+}
+
+.usuario-menu ul li a:hover {
+    background-color: #f0f0f0; /* Efecto hover sobre los enlaces */
+}
+
 /* Menú de navegación */
 .menu {
     display: flex;

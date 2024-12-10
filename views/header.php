@@ -45,27 +45,42 @@
                                 <span class="text-nowrap">AYUDA</span>
                             </div>
                         </a>
-                        <a href="/tienda">
+                        <a href="/tienda" style="margin-right: -20px;">
                         <div class="icono d-flex flex-column align-items-center">
                             <span class="icono-img"><i class="bi bi-shop"></i></span> <!-- Tienda -->
                             <span class="text-nowrap">TIENDA</span>
                         </div>
                         </a>
                         <a href="?controller=usuario&action=mostrarFormulario">
-                            <div class="icono d-flex flex-column align-items-center">
-                                <span class="icono-img"><i class="bi bi-person-circle"></i></span>
-                                <span class="text-nowrap">
-                                    <?php
-                                    // Comprobar si el usuario ha iniciado sesión
-                                    if (isset($_SESSION['usuario_id'])) {
-                                        // Obtener el usuario desde la base de datos
-                                        $usuario = UsuarioDAO::getUsuarioById($_SESSION['usuario_id']);
-                                        echo htmlspecialchars($usuario->getNombre()); // Mostrar el nombre del usuario
-                                    } else {
-                                        echo "MI CUENTA"; // Texto predeterminado
-                                    }
-                                    ?>
-                                </span>
+                            <div class="usuario">
+                                <div class="icono d-flex flex-column align-items-center">
+                                    <!-- Icono del usuario -->
+                                    <span class="icono-img"><i class="bi bi-person-circle" style="font-size: 20px;"></i></span>
+                                    <!-- Nombre o texto predeterminado -->
+                                    <span class="text-nowrap">
+                                        <?php
+                                        // Comprobar si el usuario ha iniciado sesión
+                                        if (isset($_SESSION['usuario_id'])) {
+                                            // Obtener el usuario desde la base de datos
+                                            $usuario = UsuarioDAO::getUsuarioById($_SESSION['usuario_id']);
+                                            echo htmlspecialchars($usuario->getNombre()); // Mostrar el nombre del usuario
+                                        } else {
+                                            echo "MI CUENTA"; // Texto predeterminado si no ha iniciado sesión
+                                        }
+                                        ?>
+                                    </span>
+                                </div>
+                                <!-- Menú desplegable -->
+                                <div class="usuario-menu">
+                                    <ul>
+                                        <?php if (isset($_SESSION['usuario_id'])): ?>
+                                            <li><a href="?controller=usuario&action=mostrarFormulario">Ver mis datos</a></li>
+                                            <li><a href="?controller=usuario&action=cerrarSesion">Cerrar sesión</a></li>
+                                        <?php else: ?>
+                                            <li><a href="?controller=usuario&action=mostrarFormulario">Iniciar sesión</a></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
                             </div>
                         </a>
                         <a href="?controller=carrito&action=verCarrito">
