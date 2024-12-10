@@ -42,11 +42,37 @@
                         </div>
                     </a>
                     <a href="?controller=usuario&action=mostrarFormulario" style="text-decoration: none;">
-                        <div class="iconoCarrito d-flex flex-column align-items-center">
-                            <span class="icono-img"><i class="bi bi-person-circle"></i></span> <!-- Mi cuenta -->
-                            <span class="text-nowrap">MI CUENTA</span>
-                        </div>
-                    </a>
+                            <div class="usuario">
+                                <div class="icono d-flex flex-column align-items-center">
+                                    <!-- Icono del usuario -->
+                                    <span class="icono-img"><i class="bi bi-person-circle" style="font-size: 20px;"></i></span>
+                                    <!-- Nombre o texto predeterminado -->
+                                    <span class="text-nowrap" style="margin-top: -5px;">
+                                        <?php
+                                        // Comprobar si el usuario ha iniciado sesión
+                                        if (isset($_SESSION['usuario_id'])) {
+                                            // Obtener el usuario desde la base de datos
+                                            $usuario = UsuarioDAO::getUsuarioById($_SESSION['usuario_id']);
+                                            echo htmlspecialchars($usuario->getNombre()); // Mostrar el nombre del usuario
+                                        } else {
+                                            echo "MI CUENTA"; // Texto predeterminado si no ha iniciado sesión
+                                        }
+                                        ?>
+                                    </span>
+                                </div>
+                                <!-- Menú desplegable -->
+                                <div class="usuario-menu">
+                                    <ul>
+                                        <?php if (isset($_SESSION['usuario_id'])): ?>
+                                            <li><a href="?controller=usuario&action=mostrarFormulario">Ver mis datos</a></li>
+                                            <li><a href="?controller=usuario&action=cerrarSesion">Cerrar sesión</a></li>
+                                        <?php else: ?>
+                                            <li><a href="?controller=usuario&action=mostrarFormulario">Iniciar sesión</a></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
                     <div class="iconoCarrito d-flex flex-column align-items-center">
                         <i class="bi bi-shield-lock me-1"><span class="fw-bold text-primary">100%</span></i> 
                         <span class="text-nowrap">SEGURO</span>
