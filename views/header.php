@@ -75,6 +75,7 @@
                                     <ul>
                                         <?php if (isset($_SESSION['usuario_id'])): ?>
                                             <li><a href="?controller=usuario&action=mostrarFormulario">Ver mis datos</a></li>
+                                            <li><a href="?controller=usuario&action=mostrarHistorialPedidos">Historial de pedidos</a></li> 
                                             <li><a href="?controller=usuario&action=cerrarSesion">Cerrar sesión</a></li>
                                         <?php else: ?>
                                             <li><a href="?controller=usuario&action=mostrarFormulario">Iniciar sesión</a></li>

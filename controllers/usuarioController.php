@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // Incluimos los archivos necesarios
 include_once 'models/Usuario.php';
 include_once 'models/UsuarioDAO.php';
+include_once 'models/PedidosDAO.php';
 include_once 'config/dataBase.php';
 
 class UsuarioController {
@@ -126,5 +127,18 @@ class UsuarioController {
         header("Location: ?controller=producto&action=home");
         exit;
     }
+
+    public function mostrarHistorialPedidos() {
+        // Obtener el ID del usuario desde la sesión
+        $id_usuario = $_SESSION['usuario_id'];
+        
+        // Obtener los pedidos del usuario desde el PedidosDAO
+        include_once 'models/PedidosDAO.php'; 
+        $pedidos = PedidosDAO::obtenerPedidosPorUsuario($id_usuario);
+        
+        // Pasar los pedidos a la vista
+        $view = 'views/historialPedidos.php';
+        include_once 'views/main.php'; // En la vista se usará la variable $pedidos
+    }    
 }
 ?>
