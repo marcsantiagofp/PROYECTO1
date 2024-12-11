@@ -146,7 +146,6 @@ class UsuarioController {
             $idPedido = $_GET['id'];
     
             // Llamar al método en el DAO para obtener los detalles del pedido y productos
-            include_once 'models/PedidosDAO.php';
             $detalles = PedidosDAO::obtenerDetallesPedido($idPedido);
     
             // Pasar los detalles del pedido y los productos a la vista

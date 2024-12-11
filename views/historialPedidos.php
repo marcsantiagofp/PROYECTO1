@@ -29,7 +29,6 @@
                                         <h5 class="card-title"><?= htmlspecialchars($pedido['cantidad_productos']) ?> artículos</h5>
                                         <p class="card-text"><strong>Fecha:</strong> <?= htmlspecialchars($pedido['fecha_pedido']) ?></p>
                                         <p class="card-text" style="margin-bottom: 10px;"><strong>Total:</strong> <?= htmlspecialchars($pedido['precio_total_pedidos']) ?> €</p>
-                                        <button class="btn btn-custom">Ver detalles</button>
                                     </div>
                                 </div>
                             </a>
