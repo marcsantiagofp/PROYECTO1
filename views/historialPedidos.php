@@ -15,8 +15,8 @@
                 <div class="row">
                     <?php foreach ($pedidos as $pedido): ?>
                         <div class="col-md-4 mb-3">
-                            <!-- Enlace envolviendo todo el div -->
-                            <a href="detallesPedido.php?id=<?= htmlspecialchars($pedido['id']) ?>" class="text-decoration-none">
+                            <!-- Enlace envolviendo todo el div para redirigir a la acción correcta -->
+                            <a href="?controller=usuario&action=mostrarDetallesPedido&id=<?= htmlspecialchars($pedido['id']) ?>" class="text-decoration-none">
                                 <div class="card">
                                     <?php
                                     // Obtener la primera imagen del primer producto del pedido

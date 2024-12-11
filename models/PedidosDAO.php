@@ -49,5 +49,44 @@ class PedidosDAO {
         $conexion->close(); // Cerrar la conexión
         return $pedidos; // Retornar los pedidos
     }
+
+    // Obtener los detalles de un pedido, junto con los productos asociados
+    public static function obtenerDetallesPedido($idPedido) {
+        $conexion = DataBase::connect(); // Conexión a la base de datos
+
+        // Obtener los detalles del pedido (fecha y total)
+        $sqlPedido = "SELECT fecha_pedido, precio_total_pedidos FROM PEDIDO WHERE id = ?";
+        $stmtPedido = $conexion->prepare($sqlPedido);
+        $stmtPedido->bind_param("i", $idPedido);
+        $stmtPedido->execute();
+        $resultPedido = $stmtPedido->get_result();
+        $pedido = $resultPedido->fetch_assoc();
+        $stmtPedido->close();
+
+        // Obtener los productos del pedido
+        $sqlProductos = "
+            SELECT p.nombre AS nombre_producto, 
+                p.precio AS precio_producto, 
+                lp.cantidad_productos, 
+                p.url_imagen 
+            FROM LINEA_PEDIDO lp
+            INNER JOIN PRODUCTO p ON lp.id_producto = p.id
+            WHERE lp.numero_pedido = ?
+        ";
+        $stmtProductos = $conexion->prepare($sqlProductos);
+        $stmtProductos->bind_param("i", $idPedido);
+        $stmtProductos->execute();
+        $resultProductos = $stmtProductos->get_result();
+
+        $productos = [];
+        while ($row = $resultProductos->fetch_assoc()) {
+            $productos[] = $row;
+        }
+
+        $stmtProductos->close();
+        $conexion->close();
+
+        return ['pedido' => $pedido, 'productos' => $productos];
+    } 
 }
 ?>

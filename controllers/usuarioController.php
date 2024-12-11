@@ -139,6 +139,26 @@ class UsuarioController {
         // Pasar los pedidos a la vista
         $view = 'views/historialPedidos.php';
         include_once 'views/main.php'; // En la vista se usará la variable $pedidos
+    }   
+    
+    public function mostrarDetallesPedido() {
+        if (isset($_GET['id'])) {
+            $idPedido = $_GET['id'];
+    
+            // Llamar al método en el DAO para obtener los detalles del pedido y productos
+            include_once 'models/PedidosDAO.php';
+            $detalles = PedidosDAO::obtenerDetallesPedido($idPedido);
+    
+            // Pasar los detalles del pedido y los productos a la vista
+            $pedido = $detalles['pedido'];
+            $productos = $detalles['productos'];
+    
+            $view = 'views/detallesPedido.php';
+            include_once 'views/main.php';
+        } else {
+            // Redirigir o mostrar un error si no hay un id en la URL
+            echo "Pedido no encontrado.";
+        }
     }    
 }
 ?>
