@@ -151,7 +151,7 @@
             <div class="col-md-4">
                 <div class="card rounded-0">
                     <div class="card-body">
-                    <!-- Subtotal -->
+                        <!-- Subtotal -->
                         <div class="d-flex separadorLineaCarrito">
                             <?php
                             $subtotal = 0;
@@ -175,25 +175,58 @@
                         </div>
 
                         <!-- Total con envío -->
-                        <div class="d-flex">
+                        <div>
                             <?php
                             // Calcular el coste de envío
-                                if ($subtotal < 20 and $subtotal > 0) {
-                                    $envio = 3.50;
-                                } else {
-                                    $envio = 0;
+                            if ($subtotal < 20 && $subtotal > 0) {
+                                $envio = 3.50;
+                            } else {
+                                $envio = 0;
+                            }
+
+                            // Aplicar descuento si existe
+                            $descuento = 0;
+                            $subtotalOriginal = $subtotal;
+                            if (isset($_SESSION['descuento'])) {
+                                $descuento = $_SESSION['descuento']; // Asume que el descuento es un valor numérico fijo o porcentaje
+                                if ($descuento > 0 && $descuento < 1) { // Descuento como porcentaje
+                                    $subtotal = $subtotal * (1 - $descuento); // Aplica el descuento en porcentaje
+                                } else { // Descuento como valor fijo
+                                    $subtotal = max(0, $subtotal - $descuento); // Aplica el descuento fijo
                                 }
-                                //Total de los productos
-                                $total = $subtotal + $envio; // Total con el envío
+                            }
+
+                            // Total de los productos
+                            $total = $subtotal + $envio; // Total con el envío
                             ?>
-                            <p class="fw-bold col-md-10">TOTAL</p>
-                            <p class="fw-bold col-md-2"><?= number_format($total, 2) ?>€</p>
+                            <!-- Subtotal -->
+                            <div class="d-flex">
+                                <p class="mb-0 col-md-10">Subtotal (<?= $totalArticulos ?> artículos)</p>
+                                <p class="fw-bold col-md-1 d-flex"><?= number_format($subtotalOriginal, 2) ?><span class="ms-1">€</span></p>
+                            </div>
+
+                            <!-- Descuento (si existe) -->
+                            <?php if (isset($_SESSION['descuento']) && $_SESSION['descuento'] > 0): ?>
+                                <div class="d-flex">
+                                    <p class="mb-0 col-md-10">Descuento:</p>
+                                    <p class="fw-bold col-md-1 d-flex">-<?= number_format($descuento * ($subtotalOriginal), 2) ?><span class="ms-1">€</span></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <!-- Total -->
+                            <div class="d-flex">
+                                <p class="mb-0 col-md-10">Total:</p>
+                                <p class="fw-bold col-md-1 d-flex"><?= number_format($total, 2) ?><span class="ms-1">€</span></p>
+                            </div>
                         </div>
 
                         <!-- Botones -->
                         <button type="button" class="botonesCarrito" onclick="mostrarFormularioPago()">COMENZAR PEDIDO</button>
-                        <input type="text" class="form-control mb-3" placeholder="Introduce código promocional">
-                        <button type="button" class="botonesCarrito">AÑADIR CÓDIGO</button>
+                        <form action="?controller=carrito&action=aplicarDescuento" method="POST" class="d-flex">
+                            <input type="text" name="codigo_descuento" class="form-control me-2" placeholder="Código promocional" required style="width: 200px; height: 42px; padding: 8px; border-radius: 0px;">
+                            <button type="submit" class="botonesCarrito">AÑADIR CÓDIGO</button>
+                        </form>
+
                         <hr>
 
                         <!-- Formulario de pago (inicialmente oculto) -->

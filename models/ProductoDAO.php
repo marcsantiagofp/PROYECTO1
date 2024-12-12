@@ -175,7 +175,22 @@ class ProductoDAO{
         
         // Retornar el producto
         return $producto;
-    }  
+    }
+
+    public static function getDescuentos() {
+        // Suponiendo que tienes una tabla 'descuentos' en la base de datos
+        $con = DataBase::connect();
+        $query = "SELECT * FROM DESCUENTOS";
+        $result = $con->query($query);
+        
+        $descuentos = [];
+        
+        while ($row = $result->fetch_assoc()) {
+            $descuentos[] = $row;
+        }
+        
+        return $descuentos;
+    }
 }
 
 ?>

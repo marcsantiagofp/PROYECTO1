@@ -163,4 +163,33 @@ class CarritoController {
         echo "<script>alert('Pedido enviado con éxito.');</script>";
         echo "<script>window.location.href = '?controller=pedido&action=confirmacion&id=$id_pedido';</script>";
     }
+
+    public function aplicarDescuento() {
+        if (isset($_POST['codigo_descuento'])) {
+            $codigoDescuento = $_POST['codigo_descuento'];
+            $descuentos = ProductoDAO::getDescuentos(); // Obtener todos los descuentos
+            
+            foreach ($descuentos as $descuento) {
+                if ($descuento['codigo_descuento'] === $codigoDescuento) {
+                    // Convertir el tipo de descuento a número
+                    $tipoDescuento = $descuento['tipo_descuento'];
+    
+                    if (strpos($tipoDescuento, '%') !== false) {
+                        // Si es un porcentaje, quitar el '%' y convertir a número
+                        $_SESSION['descuento'] = (float) rtrim($tipoDescuento, '%') / 100; // Asegurarse que se guarda como porcentaje
+                    } else {
+                        // Si es un valor fijo
+                        $_SESSION['descuento'] = (float) $tipoDescuento;
+                    }
+    
+                    echo "<script>alert('Descuento aplicado correctamente.');</script>";
+                    echo "<script>window.location.href = '?controller=carrito&action=verCarrito';</script>";
+                    return;
+                }
+            }
+            
+            echo "<script>alert('Código de descuento inválido.');</script>";
+            echo "<script>window.location.href = '?controller=carrito&action=verCarrito';</script>";
+        }
+    }       
 }
