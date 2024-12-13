@@ -68,5 +68,18 @@ class UsuarioDAO{
     
         return $stmt->execute();
     }
+
+    public static function obtenerRolPorId($usuario_id) {
+        $db = DataBase::connect();
+        $stmt = $db->prepare("SELECT rol FROM USUARIO WHERE id = ?");
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            return $row['rol'];  // Retorna el rol del usuario
+        }
+        return null;  // Si no se encuentra el usuario
+    }
 }
 ?>

@@ -65,6 +65,18 @@
                                     <ul>
                                         <?php if (isset($_SESSION['usuario_id'])): ?>
                                             <li><a href="?controller=usuario&action=mostrarFormulario">Ver mis datos</a></li>
+                                            <li><a href="?controller=usuario&action=mostrarHistorialPedidos">Historial de pedidos</a></li>
+                                            
+                                            <?php
+                                                // Llamar a la función obtenerRolPorId directamente usando el ID de usuario en la sesión
+                                                $rol = UsuarioDAO::obtenerRolPorId($_SESSION['usuario_id']);
+                                                
+                                                // Si el rol es 'admin', mostrar el enlace al Panel de Admin
+                                                if ($rol === 'admin') {
+                                                    echo '<li><a href="</a></li>';
+                                                }
+                                            ?>
+                                            
                                             <li><a href="?controller=usuario&action=cerrarSesion">Cerrar sesión</a></li>
                                         <?php else: ?>
                                             <li><a href="?controller=usuario&action=mostrarFormulario">Iniciar sesión</a></li>
