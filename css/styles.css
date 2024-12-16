@@ -592,6 +592,18 @@ body {
 
 /* OTROS */
 
+.btn-light {
+    padding: 10px 20px;
+    font-weight: bold;
+    margin-left: 150px;
+    background-color: #f0f0f0;
+}
+
+.btn-light:hover {
+    background-color: #e0e0e0; /* Color ligeramente más oscuro al pasar el ratón */
+    border-color: #ccc; /* Cambiar el borde a un color más oscuro */
+}
+
 /* Animación de movimiento para el carrito */
 @keyframes animarCarrito {
     0% { transform: scale(1); }

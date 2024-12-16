@@ -6,26 +6,11 @@
     <title>Detalles del Pedido</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS -->
-    <style>
-        .btn-light {
-            border-radius: 0;
-            padding: 10px 20px;
-            font-weight: bold;
-            margin-left: 150px;
-            border: 1px solid #ddd;
-            background-color: #f0f0f0;
-        }
-
-        .btn-light:hover {
-            background-color: #e0e0e0; /* Color ligeramente más oscuro al pasar el ratón */
-            border-color: #ccc; /* Cambiar el borde a un color más oscuro */
-        }
-    </style>
 </head>
 <body class="bg-light">
-    <div class="container py-5">
+    <div class="container">
         <!-- Botón para volver a todos los pedidos con estilo cuadrado y gris claro -->
-        <a href="?controller=usuario&action=mostrarHistorialPedidos" class="btn btn-light mb-4">Volver a todos los pedidos</a>
+        <a href="?controller=usuario&action=mostrarHistorialPedidos" class="btn btn-light mb-3 rounded-0">Volver a todos los pedidos</a>
 
         <div class="card mx-auto rounded-0" style="max-width: 1000px;">
             <div class="card-header text-center">
@@ -45,7 +30,7 @@
                             <?php foreach ($productos as $producto): ?>
                                 <!-- Producto -->
                                 <div class="col-md-4 mb-3">
-                                    <div class="card">
+                                    <div class="card rounded-0">
                                         <img src="<?= htmlspecialchars($producto['url_imagen']) ?>" class="card-img-top" alt="Producto">
                                         <div class="card-body">
                                             <h5 class="card-title"><?= htmlspecialchars($producto['nombre_producto']) ?></h5>
