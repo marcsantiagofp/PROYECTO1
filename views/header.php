@@ -45,7 +45,7 @@
                                 <span class="text-nowrap">AYUDA</span>
                             </div>
                         </a>
-                        <a href="/tienda" style="margin-right: -20px;">
+                        <a href="https://www.decathlon.es/es/store-locator" style="margin-right: -20px;">
                         <div class="icono d-flex flex-column align-items-center">
                             <span class="icono-img"><i class="bi bi-shop"></i></span> <!-- Tienda -->
                             <span class="text-nowrap">TIENDA</span>
