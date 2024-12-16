@@ -81,7 +81,6 @@ class UsuarioController {
         exit;
     }
     
-
     // Acción para registrar un nuevo usuario
     public function registrar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -90,6 +89,15 @@ class UsuarioController {
             $contraseña = isset($_POST['contraseña']) ? password_hash($_POST['contraseña'], PASSWORD_DEFAULT) : '';
             $direccion = $_POST['direccion'] ?? '';
             $telefono = $_POST['telefono'] ?? '';
+
+            // Verificar si el correo ya existe en la base de datos
+            $usuarioExistente = UsuarioDAO::getUsuarioByEmail($email);
+            if ($usuarioExistente) {
+                // Si el correo ya está registrado, guardar el error en la sesión
+                $_SESSION['error'] = 'El correo electrónico ya está registrado.';
+                header("Location: ?controller=usuario&action=mostrarFormulario");
+                exit();
+            }                     
 
             // Crear y configurar un nuevo usuario
             $usuario = new Usuario();
@@ -113,6 +121,7 @@ class UsuarioController {
             exit();
         }
     }
+
 
     // Acción para cerrar sesión
     public function cerrarSesion() {

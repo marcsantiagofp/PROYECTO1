@@ -43,15 +43,19 @@
 
           <!-- Mensaje de error -->
           <?php
-          if (isset($_SESSION['error'])): ?>
+            if (isset($_SESSION['error'])):
+              ?>
               <div class="alert alert-danger text-center">
                   <?php
-                  if ($_SESSION['error'] === 'usuario_no_encontrado') {
-                      echo 'Usuario no reconocido. Por favor, verifica tu email.';
+                  // Comparar el valor exacto almacenado en la sesión
+                  if ($_SESSION['error'] === 'El correo electrónico ya está registrado.') {
+                      echo $_SESSION['error'];  // Muestra el mensaje de error
+                  } elseif ($_SESSION['error'] === 'usuario_no_encontrado') {
+                      echo 'Usuario no encontrado. Por favor, verifica tu correo.';
                   } elseif ($_SESSION['error'] === 'credenciales_invalidas') {
                       echo 'Contraseña incorrecta. Inténtalo nuevamente.';
                   }
-                  unset($_SESSION['error']); // Elimina el mensaje una vez mostrado
+                  unset($_SESSION['error']);  // Elimina el mensaje después de mostrarlo
                   ?>
               </div>
           <?php endif; ?>
@@ -75,6 +79,21 @@
       <div id="registro" class="formulario" style="display: none;">
         <div class="text-start mt-2">
           <h2 class="h3 mb-4" style="margin-top: 100px;">Registrarse</h2>
+          
+          <!-- Mostrar mensaje de error si existe -->
+          <?php
+          if (isset($_SESSION['error'])):
+          ?>
+              <div class="alert alert-danger text-center">
+                  <?php
+                  if ($_SESSION['error'] === 'El correo electrónico ya está registrado.') {
+                      echo $_SESSION['error'];  // Muestra el mensaje de error
+                  }
+                  unset($_SESSION['error']);  // Elimina el mensaje de error de la sesión después de mostrarlo
+                  ?>
+              </div>
+          <?php endif; ?>
+        
           <form action="?controller=usuario&action=registrar" method="POST">
             <div class="mb-3">
                 <!-- Nombre -->
