@@ -123,6 +123,10 @@ class UsuarioController {
             unset($_SESSION['usuario_id']); // Eliminar la variable de sesión específica
         }
 
+        if (isset($_SESSION['descuento'])) {
+            unset($_SESSION['descuento']); // Eliminar la variable de sesión específica
+        }
+
         // Redirigir al formulario de login
         header("Location: ?controller=producto&action=home");
         exit;
