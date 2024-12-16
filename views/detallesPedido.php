@@ -22,7 +22,7 @@
                     <div class="list-group-item mb-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <p><strong>Fecha:</strong> <?= htmlspecialchars($pedido['fecha_pedido']) ?></p>
-                            <p><strong>Total:</strong> <?= htmlspecialchars($pedido['precio_total_pedidos']) ?> €</p>
+                            <p><strong>Precio Total Del Pedido:</strong> <?= htmlspecialchars($pedido['precio_total_pedidos']) ?> €</p>
                         </div>
 
                         <!-- Productos del pedido -->
