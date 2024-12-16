@@ -73,7 +73,7 @@
                                                 
                                                 // Si el rol es 'admin', mostrar el enlace al Panel de Admin
                                                 if ($rol === 'admin') {
-                                                    echo '<li><a href="</a></li>';
+                                                    echo '<li><a href="">Panel de Admin</a></li>';
                                                 }
                                             ?>
                                             

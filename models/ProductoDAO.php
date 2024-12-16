@@ -191,6 +191,31 @@ class ProductoDAO{
         
         return $descuentos;
     }
+    
+    public static function getAllProductos() {
+        // Conectar a la base de datos
+        $con = DataBase::connect();
+        
+        // Consulta para obtener todos los productos
+        $stmt = $con->prepare("SELECT * FROM PRODUCTO");
+        $stmt->execute();
+        
+        // Obtener los resultados
+        $result = $stmt->get_result();
+        
+        // Crear un array para almacenar los productos
+        $productos = [];
+        while ($producto = $result->fetch_object("Producto")) {
+            $productos[] = $producto;
+        }
+        
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+        
+        // Retornar la lista de productos
+        return $productos;
+    }    
 }
 
 ?>
