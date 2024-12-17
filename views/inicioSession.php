@@ -31,7 +31,13 @@
   <div class="container-fluid vh-100 d-flex p-0">
     <!-- Imagen en el lado izquierdo -->
     <div class="col-12 col-md-6 d-flex align-items-center justify-content-center p-0">
-      <img src="/PROYECTO1/images/Repartidor-Puerta.webp" alt="Repartidor en la puerta" class="img-fluid">
+      <img src="/PROYECTO1/images/Repartidor-Puerta.webp" 
+          alt="Repartidor en la puerta" 
+          class="img-fluid object-fit-cover w-100 h-100 d-none d-md-block">
+      <!-- Imagen visible en pantallas pequeñas -->
+      <img src="/PROYECTO1/images/Repartidor-Puerta.webp" 
+          alt="Repartidor en la puerta" 
+          class="img-fluid object-fit-contain d-block d-md-none" style="max-height: 50vh;">
     </div>
 
     <!-- Formulario en el lado derecho -->
@@ -122,7 +128,7 @@
       </div>
 
       <ul class="list-unstyled">
-        <li>✔ Devoluciones gratis durante 60 días</li>
+        <li>✔ Ayuda a la empresa a crecer</li>
         <li>✔ Acumula puntos y consigue cheques descuento</li>
         <li>✔ Accede a servicios exclusivos</li>
       </ul>
