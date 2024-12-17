@@ -83,8 +83,8 @@
                                                 
                                                 // Si el rol es 'admin', mostrar el enlace al Panel de Admin
                                                 if ($rol === 'admin') {
-                                                    echo '<li><a href="">Panel de Admin</a></li>';
-                                                }
+                                                    echo '<li><a href="?controller=api&action=panel">Panel de Admin</a></li>';
+                                                }                                                
                                             ?>
                                             
                                             <li><a href="?controller=usuario&action=cerrarSesion">Cerrar sesión</a></li>
