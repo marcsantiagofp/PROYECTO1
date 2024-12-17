@@ -140,14 +140,6 @@ class CarritoController {
 
     // Función para finalizar la compra
     public function finalizarCompra() {
-        // Usar la clase DataBase para conectarse a la base de datos
-        $conexion = DataBase::connect();
-
-        // Insertar el pedido en la tabla PEDIDO
-        $fecha_pedido = date('Y-m-d H:i:s'); // Fecha actual
-        $precio_total_pedidos = 0;
-        $cantidad_productos = 0;
-
         // Verificar si existe una sesión iniciada
         if (!isset($_SESSION['usuario_id'])) {
             echo "<script>alert('Debes iniciar sesión para finalizar tu pedido.');</script>";
@@ -155,30 +147,32 @@ class CarritoController {
             return;
         }
 
+        // Inicializar variables
+        $fecha_pedido = date('Y-m-d H:i:s'); // Fecha actual
+        $precio_total_pedidos = 0;
+        $cantidad_total_productos = 0;
+
         // Calcular subtotal y total de productos
         foreach ($_SESSION['carrito'] as $producto) {
             $precio_total_pedidos += $producto['precio'] * $producto['cantidad'];
-            $cantidad_productos += $producto['cantidad'];
+            $cantidad_total_productos += $producto['cantidad'];
         }
 
         // Aplicar el descuento si existe
         if (isset($_SESSION['descuento'])) {
-            $precio_total_pedidos = $precio_total_pedidos * (1 - $_SESSION['descuento']); // Aplica el descuento
+            $precio_total_pedidos *= (1 - $_SESSION['descuento']);
         }
 
         // Verificar si el precio total es menor a 20 y añadir el costo de envío
         if ($precio_total_pedidos < 20) {
-            $precio_total_pedidos += 3.50; // Agregar el costo de envío
+            $precio_total_pedidos += 3.50;
         }
 
         // ID del cliente (asumiendo que está en la sesión)
         $id_cliente = $_SESSION['usuario_id'];
 
-        // Insertar en PEDIDO
-        $stmt = $conexion->prepare("INSERT INTO PEDIDO (fecha_pedido, precio_total_pedidos, cantidad_productos, id_cliente) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sdii", $fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente);
-        $stmt->execute();
-        $id_pedido = $stmt->insert_id; // Obtener el ID del pedido insertado
+        // Insertar el pedido en la base de datos usando PedidosDAO
+        $id_pedido = PedidosDAO::insertarPedido($fecha_pedido, $precio_total_pedidos, $cantidad_total_productos, $id_cliente);
 
         // Insertar productos del carrito en la tabla LINEA_PEDIDO
         foreach ($_SESSION['carrito'] as $producto) {
@@ -186,35 +180,21 @@ class CarritoController {
             $cantidad_productos = $producto['cantidad'];
             $precio_productos = $producto['precio'] * $producto['cantidad'];
 
-            // Verificar si hay un descuento aplicado
+            // Obtener el ID del descuento si existe
             $id_descuento = null;
             if (isset($_SESSION['descuento'])) {
-                // Si hay descuento, buscar el ID del descuento aplicado
-                $codigo_descuento = $_SESSION['descuento']; // Guardado como porcentaje o valor fijo
-                $codigo_descuento_param = "%$codigo_descuento%"; // Almacenar en una variable
-                $stmt_desc = $conexion->prepare("SELECT id FROM DESCUENTOS WHERE tipo_descuento LIKE ?");
-                $stmt_desc->bind_param("s", $codigo_descuento_param); // Pasar la variable
-                $stmt_desc->execute();
-                $stmt_desc->bind_result($id_descuento);
-                $stmt_desc->fetch();
-                $stmt_desc->close();
+                $id_descuento = PedidosDAO::obtenerIdDescuento($_SESSION['descuento']);
             }
 
-            // Insertar en LINEA_PEDIDO
-            $stmt_linea = $conexion->prepare("INSERT INTO LINEA_PEDIDO (cantidad_productos, precio_productos, id_producto, id_descuento, numero_pedido) VALUES (?, ?, ?, ?, ?)");
-            $stmt_linea->bind_param("idiii", $cantidad_productos, $precio_productos, $id_producto, $id_descuento, $id_pedido);
-            $stmt_linea->execute();
+            // Insertar línea de pedido en la base de datos
+            PedidosDAO::insertarLineaPedido($cantidad_productos, $precio_productos, $id_producto, $id_descuento, $id_pedido);
         }
 
-        // Limpiar el carrito
+        // Limpiar el carrito y el descuento de la sesión
         unset($_SESSION['carrito']);
         unset($_SESSION['descuento']);
 
-        // Cerrar las declaraciones y la conexión
-        $stmt->close();
-        $conexion->close();
-
-        // Redirigir a la página de confirmación o mostrar mensaje
+        // Redirigir a la página de confirmación
         echo "<script>alert('Pedido enviado con éxito.');</script>";
         echo "<script>window.location.href = '?controller=pedido&action=confirmacion&id=$id_pedido';</script>";
     }

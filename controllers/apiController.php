@@ -5,7 +5,7 @@ include_once("config/dataBase.php");
 class ApiController {
 
     public function panel() {
-        // Aquí puedes cargar tu vista con datos, por ejemplo:
+        // Aquí puedes cargar tu vista con datos
         $view = 'views/panelAdmin.php';
         include_once 'views/main.php';
     }
@@ -23,6 +23,9 @@ class ApiController {
 
         header('Content-Type: application/json');
         echo json_encode($usuarios);
+        
+        // Cerrar la conexión después de usarla
+        $db->close();
     }
 
     // Crear un nuevo usuario
@@ -47,6 +50,9 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        // Cerrar la conexión
+        $db->close();
     }
 
     // Editar un usuario existente
@@ -63,6 +69,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 
     // Eliminar un usuario
@@ -77,6 +85,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 
     // Obtener todos los productos
@@ -92,6 +102,9 @@ class ApiController {
 
         header('Content-Type: application/json');
         echo json_encode($productos);
+
+        // Cerrar la conexión
+        $db->close();
     }
 
     // Crear un nuevo producto
@@ -115,6 +128,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 
     // Editar un producto existente
@@ -131,6 +146,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 
     // Eliminar un producto
@@ -145,6 +162,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 
     // Obtener todos los pedidos
@@ -160,6 +179,9 @@ class ApiController {
 
         header('Content-Type: application/json');
         echo json_encode($pedidos);
+
+        // Cerrar la conexión
+        $db->close();
     }
 
     // Crear un nuevo pedido
@@ -181,6 +203,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 
     // Eliminar un pedido
@@ -195,6 +219,8 @@ class ApiController {
             http_response_code(500);
             echo json_encode(['error' => $db->error]);
         }
+
+        $db->close();
     }
 }
 
@@ -234,7 +260,6 @@ if ($resource === 'usuarios') {
         $apiController->deletePedido($id);
     }
 } else {
-    // Evitamos enviar una respuesta de error
-    // Si no es un recurso válido, simplemente no se hace nada (no se muestra mensaje).
+    //no hace nda
 }
 ?>

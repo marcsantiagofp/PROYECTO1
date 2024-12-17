@@ -8,9 +8,8 @@ class PedidosDAO {
 
     // Función para obtener los pedidos de un usuario por ID, ordenados por fecha ascendente
     public static function obtenerPedidosPorUsuario($idUsuario) {
-        $conexion = DataBase::connect(); // Conexión a la base de datos
+        $conexion = DataBase::connect();
 
-        // Consulta para obtener los pedidos del usuario
         $sql = "SELECT * FROM PEDIDO WHERE id_cliente = ? ORDER BY fecha_pedido ASC";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("i", $idUsuario);
@@ -33,28 +32,22 @@ class PedidosDAO {
 
             $productos = [];
             while ($producto = $productos_result->fetch_assoc()) {
-                $productos[] = $producto; // Guardar cada producto en el array
+                $productos[] = $producto;
             }
 
-            // Si no hay productos, puedes dejar un mensaje (esto es opcional)
-            if (empty($productos)) {
-                error_log("No se encontraron productos para el pedido ID: " . $row['id']);
-            }
-
-            $pedido['productos'] = $productos; // Añadir los productos al pedido
-            $pedidos[] = $pedido; // Añadir el pedido con productos a la lista
+            $pedido['productos'] = $productos;
+            $pedidos[] = $pedido;
         }
 
-        $stmt->close(); // Cerrar la declaración
-        $conexion->close(); // Cerrar la conexión
-        return $pedidos; // Retornar los pedidos
+        $stmt->close();
+        $conexion->close();
+        return $pedidos;
     }
 
     // Obtener los detalles de un pedido, junto con los productos asociados
     public static function obtenerDetallesPedido($idPedido) {
-        $conexion = DataBase::connect(); // Conexión a la base de datos
+        $conexion = DataBase::connect();
 
-        // Obtener los detalles del pedido (fecha y total)
         $sqlPedido = "SELECT fecha_pedido, precio_total_pedidos FROM PEDIDO WHERE id = ?";
         $stmtPedido = $conexion->prepare($sqlPedido);
         $stmtPedido->bind_param("i", $idPedido);
@@ -63,7 +56,6 @@ class PedidosDAO {
         $pedido = $resultPedido->fetch_assoc();
         $stmtPedido->close();
 
-        // Obtener los productos del pedido
         $sqlProductos = "
             SELECT p.nombre AS nombre_producto, 
                 p.precio AS precio_producto, 
@@ -87,6 +79,45 @@ class PedidosDAO {
         $conexion->close();
 
         return ['pedido' => $pedido, 'productos' => $productos];
-    } 
+    }
+
+    // Nueva función: Insertar un pedido
+    public static function insertarPedido($fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente) {
+        $conexion = DataBase::connect();
+        $stmt = $conexion->prepare("INSERT INTO PEDIDO (fecha_pedido, precio_total_pedidos, cantidad_productos, id_cliente) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("sdii", $fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente);
+        $stmt->execute();
+        $id_pedido = $stmt->insert_id;
+        $stmt->close();
+        $conexion->close();
+        return $id_pedido;
+    }
+
+    // Nueva función: Obtener el ID del descuento
+    public static function obtenerIdDescuento($codigo_descuento) {
+        $conexion = DataBase::connect();
+        $id_descuento = null;
+
+        $codigo_descuento_param = "%$codigo_descuento%";
+        $stmt = $conexion->prepare("SELECT id FROM DESCUENTOS WHERE tipo_descuento LIKE ?");
+        $stmt->bind_param("s", $codigo_descuento_param);
+        $stmt->execute();
+        $stmt->bind_result($id_descuento);
+        $stmt->fetch();
+        $stmt->close();
+        $conexion->close();
+
+        return $id_descuento;
+    }
+
+    // Nueva función: Insertar una línea de pedido
+    public static function insertarLineaPedido($cantidad_productos, $precio_productos, $id_producto, $id_descuento, $numero_pedido) {
+        $conexion = DataBase::connect();
+        $stmt = $conexion->prepare("INSERT INTO LINEA_PEDIDO (cantidad_productos, precio_productos, id_producto, id_descuento, numero_pedido) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("idiii", $cantidad_productos, $precio_productos, $id_producto, $id_descuento, $numero_pedido);
+        $stmt->execute();
+        $stmt->close();
+        $conexion->close();
+    }
 }
 ?>

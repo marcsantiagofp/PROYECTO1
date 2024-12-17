@@ -10,6 +10,7 @@
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative; /* Añadido para permitir la posición absoluta del botón */
         }
         .sidebar {
             width: 250px;
@@ -35,9 +36,21 @@
             margin-right: 250px;
             padding: 20px;
         }
+
+        /* Estilo para el botón de volver a la página principal */
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background-color: #343a40;
+        }
     </style>
 </head>
 <body>
+    <!-- Botón para volver a la página principal -->
+    <a href="?controller=producto&action=home" class="btn btn-secondary back-button">Volver al Inicio</a>
+
     <!-- Main content -->
     <div class="main-content">
         <h1 class="text-center mb-4">Admin Panel - <span id="section-title">Productos</span></h1>

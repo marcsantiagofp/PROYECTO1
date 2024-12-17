@@ -17,9 +17,17 @@
             // Verificar si el carrito está vacío usando PHP para establecer la condición
             var carritoVacio = <?php echo empty($_SESSION['carrito']) ? 'true' : 'false'; ?>;
             
+            // Verificar si el usuario ha iniciado sesión usando PHP para establecer la condición
+            var usuarioNoLogueado = <?php echo !isset($_SESSION['usuario_id']) ? 'true' : 'false'; ?>;
+
+            // Lógica para mostrar mensajes de alerta
             if (carritoVacio) {
                 alert('Tu carrito está vacío. No puedes realizar la compra.');
+            } else if (usuarioNoLogueado) {
+                alert('Debes iniciar sesión para realizar una compra.');
+                window.location.href = '?controller=usuario&action=mostrarFormulario';
             } else {
+                // Si todo está correcto, mostrar el formulario
                 formularioPago.style.display = formularioPago.style.display === 'block' ? 'none' : 'block';
             }
         }
