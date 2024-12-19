@@ -1,10 +1,11 @@
 <?php
 
-// Incluir archivos
+// Incluir archivos necesarios
 include_once 'models/Producto.php';
 include_once 'models/ProductoDAO.php';
 include_once 'models/Usuario.php';
 include_once 'models/UsuarioDAO.php';
+include_once 'models/PedidosDAO.php';
 include_once 'config/dataBase.php';
 
 class ApiController {
@@ -15,26 +16,23 @@ class ApiController {
         include_once 'views/main.php';
     }
 
-    // Acción para obtener los pedidos
+    // Acción para obtener los pedidos usando la función getAllPedidos de PedidosDAO
     public function obtenerPedidos() {
-        // Conectar a la base de datos
-        $con = DataBase::connect();
+        try {
+            // Llamar a la función getAllPedidos para obtener todos los pedidos
+            $pedidos = PedidosDAO::getAllPedidos();
 
-        // Consultar pedidos
-        $query = "SELECT * FROM PEDIDO";
-        $result = $con->query($query);
-        
-        if ($result) {
-            $pedidos = [];
-            while ($row = $result->fetch_assoc()) {
-                $pedidos[] = $row;
+            // Verificar si se obtuvieron resultados
+            if (!empty($pedidos)) {
+                // Devolver los pedidos en formato JSON
+                echo json_encode($pedidos);
+            } else {
+                // Responder con un mensaje si no hay pedidos
+                echo json_encode(["mensaje" => "No hay pedidos disponibles"]);
             }
-
-            // Devolver los pedidos en formato JSON
-            echo json_encode($pedidos);
-        } else {
-            // Manejo de errores si no se pueden obtener los pedidos
-            echo json_encode(["error" => "No se pudieron obtener los pedidos"]);
+        } catch (Exception $e) {
+            // Manejo de errores en caso de excepciones
+            echo json_encode(["error" => "Ocurrió un error al obtener los pedidos: " . $e->getMessage()]);
         }
     }
 }
