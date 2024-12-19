@@ -119,5 +119,28 @@ class PedidosDAO {
         $stmt->close();
         $conexion->close();
     }
+
+    // Obtener todos los pedidos de la base de datos
+    public static function getAllPedidos() {
+        $conexion = DataBase::connect();
+
+        // Consulta para obtener todos los pedidos
+        $sql = "SELECT * FROM PEDIDO ORDER BY fecha_pedido ASC";
+        $stmt = $conexion->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Almacenar los pedidos en un arreglo
+        $pedidos = [];
+        while ($row = $result->fetch_assoc()) {
+            $pedidos[] = $row;
+        }
+
+        // Cerrar conexión
+        $stmt->close();
+        $conexion->close();
+
+        return $pedidos;
+    }
 }
 ?>

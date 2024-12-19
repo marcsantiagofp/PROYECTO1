@@ -81,5 +81,28 @@ class UsuarioDAO{
         }
         return null;  // Si no se encuentra el usuario
     }
+
+    // Obtener todos los usuarios de la base de datos
+    public static function getAllUsuarios() {
+        $db = DataBase::connect();
+
+        // Consulta para obtener todos los usuarios
+        $sql = "SELECT * FROM USUARIO ORDER BY id ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Almacenar los usuarios en un arreglo
+        $usuarios = [];
+        while ($row = $result->fetch_assoc()) {
+            $usuarios[] = $row;
+        }
+
+        // Cerrar conexión
+        $stmt->close();
+        $db->close();
+
+        return $usuarios;
+    }
 }
 ?>
