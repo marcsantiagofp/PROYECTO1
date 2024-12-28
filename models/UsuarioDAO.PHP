@@ -104,5 +104,20 @@ class UsuarioDAO{
 
         return $usuarios;
     }
+
+    // Eliminar un usuario por ID
+    public static function eliminarUsuario($id) {
+        $db = DataBase::connect();
+        $stmt = $db->prepare("DELETE FROM USUARIO WHERE id = ?");
+        $stmt->bind_param("i", $id);
+
+        // Ejecutar la consulta y devolver true si se eliminó al menos una fila
+        $result = $stmt->execute();
+        $stmt->close();
+        $db->close();
+
+        return $result;  // Devuelve true si se eliminó un usuario, false si no
+    }
+
 }
 ?>

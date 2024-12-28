@@ -205,7 +205,7 @@ class ProductoDAO{
         
         // Crear un array para almacenar los productos
         $productos = [];
-        while ($producto = $result->fetch_object("Producto")) {
+        while ($producto = $result->fetch_assoc()) {  // Usamos fetch_assoc para devolver un array
             $productos[] = $producto;
         }
         
@@ -215,7 +215,21 @@ class ProductoDAO{
         
         // Retornar la lista de productos
         return $productos;
-    }    
+    }  
+    
+    // Eliminar un producto por ID
+    public static function eliminarProducto($id) {
+        $db = DataBase::connect();
+        $stmt = $db->prepare("DELETE FROM PRODUCTO WHERE id = ?");
+        $stmt->bind_param("i", $id);
+
+        // Ejecutar la consulta y devolver true si se eliminó al menos una fila
+        $result = $stmt->execute();
+        $stmt->close();
+        $db->close();
+
+        return $result;  // Devuelve true si se eliminó un producto, false si no
+    }
 }
 
 ?>

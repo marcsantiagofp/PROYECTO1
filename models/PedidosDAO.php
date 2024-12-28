@@ -142,5 +142,25 @@ class PedidosDAO {
 
         return $pedidos;
     }
+
+    // Eliminar un pedido y sus líneas asociadas
+    public static function eliminarPedido($id) {
+        $db = DataBase::connect();
+        
+        // Eliminar las líneas del pedido primero
+        $stmt = $db->prepare("DELETE FROM LINEA_PEDIDO WHERE numero_pedido = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        
+        // Eliminar el pedido
+        $stmt = $db->prepare("DELETE FROM PEDIDO WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $result = $stmt->execute();
+        
+        $stmt->close();
+        $db->close();
+
+        return $result;  // Devuelve true si se eliminó el pedido, false si no
+    }
 }
 ?>
