@@ -230,6 +230,22 @@ class ProductoDAO{
 
         return $result;  // Devuelve true si se eliminó un producto, false si no
     }
+
+    // Insertar un producto
+    public static function insertarProducto($nombre, $precio, $descripcion, $url_imagen, $id_categoria) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("INSERT INTO PRODUCTO (nombre, descripcion, precio, url_imagen, id_categoria) VALUES (?, ?, ?, ?, ?)");
+        
+        // Vincular los parámetros directamente
+        $stmt->bind_param("ssdsi", $nombre, $descripcion, $precio, $url_imagen, $id_categoria);
+        $result = $stmt->execute();
+        
+        // Cerrar conexión
+        $stmt->close();
+        $con->close();
+        
+        return $result;  // Devuelve true si la inserción fue exitosa
+    }
 }
 
 ?>

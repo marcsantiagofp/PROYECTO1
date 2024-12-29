@@ -118,6 +118,17 @@ class UsuarioDAO{
 
         return $result;  // Devuelve true si se eliminó un usuario, false si no
     }
-
+    
+    // Insertar nuevo usuario
+    public static function insertarUsuarioAdmin($nombre, $email, $contraseña, $direccion, $rol) {
+        $db = DataBase::connect();
+        $stmt = $db->prepare("INSERT INTO USUARIO (nombre, email, contraseña, direccion, rol) VALUES (?, ?, ?, ?, ?)");
+        
+        // Asignamos los parámetros directamente a la consulta preparada
+        $stmt->bind_param("sssss", $nombre, $email, $contraseña, $direccion, $rol);
+        
+        // Ejecutar la consulta y devolver el resultado
+        return $stmt->execute();
+    }
 }
 ?>
