@@ -155,6 +155,21 @@ class ProductoDAO{
         return $productos;
     }    
 
+    public static function getDescuentos() {
+        // Suponiendo que tienes una tabla 'descuentos' en la base de datos
+        $con = DataBase::connect();
+        $query = "SELECT * FROM DESCUENTOS";
+        $result = $con->query($query);
+        
+        $descuentos = [];
+        
+        while ($row = $result->fetch_assoc()) {
+            $descuentos[] = $row;
+        }
+        
+        return $descuentos;
+    }
+
     //funcion que busque losp productos por id ponerla aqui
     public static function getProductoById($id_producto) {
         // Conectar a la base de datos
@@ -175,21 +190,6 @@ class ProductoDAO{
         
         // Retornar el producto
         return $producto;
-    }
-
-    public static function getDescuentos() {
-        // Suponiendo que tienes una tabla 'descuentos' en la base de datos
-        $con = DataBase::connect();
-        $query = "SELECT * FROM DESCUENTOS";
-        $result = $con->query($query);
-        
-        $descuentos = [];
-        
-        while ($row = $result->fetch_assoc()) {
-            $descuentos[] = $row;
-        }
-        
-        return $descuentos;
     }
     
     public static function getAllProductos() {
@@ -246,6 +246,40 @@ class ProductoDAO{
         
         return $result;  // Devuelve true si la inserción fue exitosa
     }
+
+    public static function actualizarProducto($id, $nombre, $descripcion, $precio, $id_categoria) {
+        // Conectar a la base de datos
+        $con = DataBase::connect();
+    
+        // Preparar la consulta SQL para actualizar el producto
+        $stmt = $con->prepare("
+            UPDATE PRODUCTO 
+            SET nombre = ?, descripcion = ?, precio = ?, id_categoria = ?
+            WHERE id = ?
+        ");
+        
+        if (!$stmt) {
+            error_log("Error al preparar la consulta: " . $con->error);
+            return false;
+        }
+    
+        // Vincular los parámetros con los tipos correctos
+        $stmt->bind_param("ssdsi", $nombre, $descripcion, $precio, $id_categoria, $id);
+        
+        // Ejecutar la consulta
+        $result = $stmt->execute();
+        
+        if (!$result) {
+            error_log("Error al ejecutar la consulta: " . $stmt->error);
+        }
+    
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+    
+        // Retornar el resultado de la operación
+        return $result; // true si la actualización fue exitosa, false si no
+    }    
 }
 
 ?>

@@ -130,5 +130,28 @@ class UsuarioDAO{
         // Ejecutar la consulta y devolver el resultado
         return $stmt->execute();
     }
+
+    public static function actualizarUsuario($id, $nombre, $email, $direccion, $contraseña, $rol) {
+        $db = DataBase::connect();
+        
+        // Consulta SQL para actualizar los datos del usuario
+        $stmt = $db->prepare("
+            UPDATE USUARIO 
+            SET nombre = ?, email = ?, direccion = ?, contraseña = ?, rol = ? 
+            WHERE id = ?
+        ");
+        
+        // Enlazar los valores a los parámetros de la consulta
+        $stmt->bind_param("sssssi", $nombre, $email, $direccion, $contraseña, $rol, $id);
+        
+        // Ejecutar la consulta
+        $result = $stmt->execute();
+        
+        // Cerrar la consulta y la conexión
+        $stmt->close();
+        $db->close();
+        
+        return $result; // Devuelve true si la actualización fue exitosa, false en caso contrario
+    }
 }
 ?>

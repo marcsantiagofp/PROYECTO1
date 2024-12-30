@@ -6,6 +6,7 @@
                 protected $precio;
                 protected $url_imagen;
                 protected $descripcion;
+                protected $id_categoria;
 
                 /**
                  * Get the value of nombre
@@ -103,6 +104,26 @@
                 public function setId($id)
                 {
                                 $this->id = $id;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of id_categoria
+                 */ 
+                public function getId_categoria()
+                {
+                                return $this->id_categoria;
+                }
+
+                /**
+                 * Set the value of id_categoria
+                 *
+                 * @return  self
+                 */ 
+                public function setId_categoria($id_categoria)
+                {
+                                $this->id_categoria = $id_categoria;
 
                                 return $this;
                 }
