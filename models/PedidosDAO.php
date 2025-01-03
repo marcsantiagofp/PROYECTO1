@@ -81,18 +81,6 @@ class PedidosDAO {
         return ['pedido' => $pedido, 'productos' => $productos];
     }
 
-    // Nueva función: Insertar un pedido
-    public static function insertarPedido($fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente) {
-        $conexion = DataBase::connect();
-        $stmt = $conexion->prepare("INSERT INTO PEDIDO (fecha_pedido, precio_total_pedidos, cantidad_productos, id_cliente) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sdii", $fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente);
-        $stmt->execute();
-        $id_pedido = $stmt->insert_id;
-        $stmt->close();
-        $conexion->close();
-        return $id_pedido;
-    }
-
     // Nueva función: Obtener el ID del descuento
     public static function obtenerIdDescuento($codigo_descuento) {
         $conexion = DataBase::connect();
@@ -108,6 +96,22 @@ class PedidosDAO {
         $conexion->close();
 
         return $id_descuento;
+    }
+
+    // Nueva función: Insertar un pedido
+    public static function insertarPedido($fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente) {
+        $conexion = DataBase::connect();
+        
+        // Asegurarse de que la fecha esté en formato correcto
+        $fecha_pedido = date('Y-m-d H:i:s', strtotime($fecha_pedido)); // Si la fecha viene en un formato distinto
+        
+        $stmt = $conexion->prepare("INSERT INTO PEDIDO (fecha_pedido, precio_total_pedidos, cantidad_productos, id_cliente) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("sdii", $fecha_pedido, $precio_total_pedidos, $cantidad_productos, $id_cliente);
+        $stmt->execute();
+        $id_pedido = $stmt->insert_id;
+        $stmt->close();
+        $conexion->close();
+        return $id_pedido;
     }
 
     // Nueva función: Insertar una línea de pedido
@@ -161,6 +165,106 @@ class PedidosDAO {
         $db->close();
 
         return $result;  // Devuelve true si se eliminó el pedido, false si no
+    }
+
+    // Función para obtener un pedido por ID
+    public static function obtenerPedidoPorId($idPedido) {
+        $conexion = DataBase::connect();
+
+        // Consulta para obtener el pedido por su ID
+        $sqlPedido = "SELECT * FROM PEDIDO WHERE id = ?";
+        $stmtPedido = $conexion->prepare($sqlPedido);
+        $stmtPedido->bind_param("i", $idPedido);
+        $stmtPedido->execute();
+        $resultPedido = $stmtPedido->get_result();
+        
+        // Si el pedido no existe, retornamos null
+        if ($resultPedido->num_rows == 0) {
+            return null;
+        }
+        
+        // Obtener el pedido
+        $pedido = $resultPedido->fetch_assoc();
+        $stmtPedido->close();
+
+        // Consulta para obtener los productos asociados al pedido
+        $sqlProductos = "
+        SELECT p.id, p.nombre, p.precio, p.url_imagen, lp.cantidad_productos 
+        FROM LINEA_PEDIDO lp
+        INNER JOIN PRODUCTO p ON lp.id_producto = p.id
+        WHERE lp.numero_pedido = ?
+        ";
+
+        $stmtProductos = $conexion->prepare($sqlProductos);
+        $stmtProductos->bind_param("i", $idPedido);
+        $stmtProductos->execute();
+        $resultProductos = $stmtProductos->get_result();
+
+        $productos = [];
+        while ($row = $resultProductos->fetch_assoc()) {
+            $row['cantidad'] = (int)$row['cantidad_productos']; // Convertir 'cantidad_productos' a entero y asignarlo a 'cantidad'
+            unset($row['cantidad_productos']); // Eliminar la columna 'cantidad_productos' para evitar confusión
+            $productos[] = $row;
+        }
+
+        $stmtProductos->close();
+        $conexion->close();
+
+        return ['pedido' => $pedido, 'productos' => $productos];
+    }
+
+    // Función para actualizar un pedido
+    public static function actualizarPedido($idPedido, $precio_total_pedidos, $cantidad_productos) {
+        $conexion = DataBase::connect();  // Conexión a la base de datos
+
+        // Consulta para actualizar el pedido
+        $sql = "UPDATE PEDIDO SET precio_total_pedidos = ?, cantidad_productos = ? WHERE id = ?";
+        $stmt = $conexion->prepare($sql);
+        
+        // Ajustar el tipo de los parámetros: d para decimal, i para integer
+        $stmt->bind_param("dii", $precio_total_pedidos, $cantidad_productos, $idPedido);
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+        $affectedRows = $stmt->affected_rows;  // Capturar las filas afectadas
+
+        // Cerrar la declaración y la conexión
+        $stmt->close();
+        $conexion->close();
+
+        // Devuelve true si al menos una fila fue actualizada
+        return $affectedRows > 0;
+    }
+
+    // Función para añadir las líneas del pedido
+    public static function actualizarLineaPedido($idPedido, $idProducto, $cantidadProductos, $precioProductos) {
+        $conexion = DataBase::connect();
+
+        // Inserta una nueva línea de pedido
+        $sql = "INSERT INTO LINEA_PEDIDO (numero_pedido, id_producto, cantidad_productos, precio_productos) 
+                VALUES (?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("iidi", $idPedido, $idProducto, $cantidadProductos, $precioProductos);
+        $stmt->execute();
+        $stmt->close();
+
+        $conexion->close();
+        return true;  // Siempre retorna true si el proceso fue exitoso (insertar)
+    }
+
+    //para la limpieza a la hora de modificar
+    public static function eliminarLineasPedido($idPedido) {
+        $conexion = DataBase::connect();
+    
+        // Eliminar todas las líneas de productos asociadas al pedido
+        $sqlEliminar = "DELETE FROM LINEA_PEDIDO WHERE numero_pedido = ?";
+        $stmtEliminar = $conexion->prepare($sqlEliminar);
+        $stmtEliminar->bind_param("i", $idPedido);
+        $stmtEliminar->execute();
+        $stmtEliminar->close();
+    
+        $conexion->close();
+        return true; // Retorna true si el proceso fue exitoso
     }
 }
 ?>

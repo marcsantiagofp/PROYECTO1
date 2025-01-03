@@ -89,14 +89,68 @@ class ApiController {
                 switch ($tipo) {
                     case 'pedido':
                         // Validar que todos los parámetros del pedido estén presentes
-                        if (!isset($data->id_cliente) || !isset($data->fecha_pedido) || !isset($data->precio_total_pedidos) || !isset($data->cantidad_productos)) {
+                        if (
+                            !isset($data->id_cliente) || 
+                            !isset($data->fecha_pedido) || 
+                            !isset($data->precio_total_pedidos) || 
+                            !isset($data->cantidad_productos) || 
+                            !isset($data->productos)
+                        ) {
                             echo json_encode(["error" => "Datos incompletos para el pedido"]);
-                            return;
+                            exit; // Detener aquí si los datos son incompletos
                         }
+                    
+                        // Verificar si el cliente existe
+                        $usuario = UsuarioDAO::getUsuarioById($data->id_cliente);  // Obtener el usuario por su ID
+                        if (!$usuario) {
+                            echo json_encode(["error" => "ID de cliente no válido, vuelva a confirmar pedido e introducir uno correcto"]);
+                            exit;  // Detener si el cliente no existe
+                        }
+                    
+                        // Iniciar una transacción
+                        $conexion = DataBase::connect();
+                        $conexion->begin_transaction();
+                    
                         // Insertar el pedido en la base de datos
-                        $resultado = PedidosDAO::insertarPedido($data->id_cliente, $data->fecha_pedido, $data->precio_total_pedidos, $data->cantidad_productos);
-                        break;
-
+                        $idPedido = PedidosDAO::insertarPedido(
+                            $data->fecha_pedido, 
+                            $data->precio_total_pedidos,
+                            $data->cantidad_productos,
+                            $data->id_cliente
+                        );
+                    
+                        if (!$idPedido) {
+                            // Error al insertar el pedido
+                            echo json_encode(["error" => "Error al insertar el pedido"]);
+                            $conexion->rollback();
+                            exit;
+                        }
+                    
+                        // Insertar las líneas de pedido
+                        foreach ($data->productos as $producto) {
+                            if (!isset($producto->id) || !isset($producto->cantidad) || !isset($producto->precio)) {
+                                echo json_encode(["error" => "Datos incompletos para el producto"]);
+                                $conexion->rollback();
+                                exit;
+                            }
+                    
+                            PedidosDAO::insertarLineaPedido(
+                                $producto->cantidad, 
+                                $producto->precio * $producto->cantidad, 
+                                $producto->id, 
+                                null, // Descuento null
+                                $idPedido
+                            );
+                        }
+                    
+                        // Confirmar la transacción
+                        $conexion->commit();
+                    
+                        // Enviar la respuesta final de éxito
+                        echo json_encode(["success" => true, "id_pedido" => $idPedido]);
+                        exit; // Asegurarse de no continuar ejecutando código                    
+                                                                                                                                                                       
+                    
                     case 'usuario':
                         // Validar que todos los parámetros del usuario estén presentes
                         if (!isset($data->nombre) || !isset($data->email) || !isset($data->direccion) || !isset($data->rol) || !isset($data->contraseña)) {
@@ -202,13 +256,81 @@ class ApiController {
                 switch ($tipo) {
                     case 'pedido':
                         // Validar que los parámetros necesarios estén presentes
-                        if (!isset($data->id) || !isset($data->id_cliente) || !isset($data->fecha_pedido) || !isset($data->precio_total_pedidos) || !isset($data->cantidad_productos)) {
-                            echo json_encode(["error" => "Datos incompletos para el pedido"]);
+                        if (!isset($data->id_pedido) || !isset($data->precio_total_pedidos) || !isset($data->cantidad_productos) || !isset($data->productos)) {
+                            echo json_encode(["error" => "Datos incompletos para el pedido."]);
                             return;
                         }
-                        // Actualizar el pedido
-                        // $resultado = PedidosDAO::actualizarPedido($data->id, $data->id_cliente, $data->fecha_pedido, $data->precio_total_pedidos, $data->cantidad_productos);
-                        break;
+                    
+                        // Verificar que la lista de productos no esté vacía
+                        if (empty($data->productos)) {
+                            echo json_encode(["error" => "El pedido no contiene productos."]);
+                            return;
+                        }
+                    
+                        // Validar que los datos numéricos son correctos
+                        if (!is_numeric($data->precio_total_pedidos) || $data->precio_total_pedidos <= 0) {
+                            echo json_encode(["error" => "El precio total del pedido es inválido."]);
+                            return;
+                        }
+                        if (!is_numeric($data->cantidad_productos) || $data->cantidad_productos <= 0) {
+                            echo json_encode(["error" => "La cantidad total de productos es inválida."]);
+                            return;
+                        }
+                    
+                        // Actualizar el pedido en la base de datos
+                        $resultadoPedido = PedidosDAO::actualizarPedido(
+                            $data->id_pedido,
+                            $data->precio_total_pedidos,
+                            $data->cantidad_productos,
+                        );
+
+                        // Eliminar todas las líneas de productos asociadas al pedido para limpiar
+                        $eliminarLineas = PedidosDAO::eliminarLineasPedido($data->id_pedido);
+                        if (!$eliminarLineas) {
+                            echo json_encode(["error" => "Error al eliminar las líneas de productos del pedido."]);
+                        }
+                    
+                        // Procesar cada producto para actualizar o crear las líneas de pedido
+                        foreach ($data->productos as $producto) {
+                            // Validar que los datos del producto sean válidos
+                            if (!isset($producto->id) || !isset($producto->cantidad) || !isset($producto->precio)) {
+                                echo json_encode(["error" => "Datos incompletos para el producto en el pedido."]);
+                                return;
+                            }
+                    
+                            // Validar que los valores numéricos del producto sean correctos
+                            if (!is_numeric($producto->cantidad) || $producto->cantidad <= 0) {
+                                echo json_encode(["error" => "Cantidad inválida para el producto ID " . $producto->id]);
+                                return;
+                            }
+                            if (!is_numeric($producto->precio) || $producto->precio <= 0) {
+                                echo json_encode(["error" => "Precio inválido para el producto ID " . $producto->id]);
+                                return;
+                            }
+                    
+                            // Calcular el precio total de la línea de pedido
+                            $precioTotalLinea = $producto->precio * $producto->cantidad;
+                    
+                            // Verificar que el precio total de la línea sea válido
+                            if ($precioTotalLinea <= 0) {
+                                echo json_encode(["error" => "Precio total inválido para el producto ID " . $producto->id]);
+                                return;
+                            }
+                    
+                            // Actualizar la línea de pedido en la base de datos
+                            $resultadoLinea = PedidosDAO::actualizarLineaPedido(
+                                $data->id_pedido,
+                                $producto->id,
+                                $producto->cantidad,
+                                $precioTotalLinea
+                            );
+                    
+                            if (!$resultadoLinea) {
+                                echo json_encode(["error" => "Error al actualizar la línea de pedido para el producto ID " . $producto->id]);
+                                return;
+                            }
+                        }
+                        break;                                                                                                           
 
                     case 'usuario':
                         if (!isset($data->id) || !isset($data->nombre) || !isset($data->email) || !isset($data->direccion) || !isset($data->contraseña) || !isset($data->rol)) {
@@ -341,6 +463,35 @@ class ApiController {
             } else {
                 // En caso de que no se encuentre el producto
                 echo json_encode(['error' => 'Producto no encontrado']);
+            }
+        } else {
+            echo json_encode(['error' => 'ID no proporcionado']);
+        }
+    }
+
+    // Función para obtener el pedido por la ID
+    public function obtenerPedidoPorId() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+
+            // Usamos el DAO para obtener el pedido
+            $pedido = PedidosDAO::obtenerPedidoPorId($id);
+
+            if ($pedido) {
+                // Retornar los datos del pedido en formato JSON
+                $respuesta = [
+                    'id' => $pedido['pedido']['id'],
+                    'id_cliente' => $pedido['pedido']['id_cliente'],
+                    'fecha_pedido' => $pedido['pedido']['fecha_pedido'],
+                    'precio_total_pedidos' => $pedido['pedido']['precio_total_pedidos'],
+                    'cantidad_productos' => $pedido['pedido']['cantidad_productos'],
+                    'productos' => $pedido['productos'] // Incluimos los productos
+                ];
+
+                echo json_encode($respuesta);
+            } else {
+                // En caso de que no se encuentre el pedido
+                echo json_encode(['error' => 'Pedido no encontrado']);
             }
         } else {
             echo json_encode(['error' => 'ID no proporcionado']);
