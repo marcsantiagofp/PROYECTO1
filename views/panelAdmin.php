@@ -57,6 +57,20 @@
     <!-- Main content -->
     <div class="main-content">
         <h1 class="text-center mb-4">Admin Panel - <span id="section-title"></span></h1>
+
+        <!-- Contenedor de los botones de filtro (inicialmente oculto) -->
+        <div id="filter-section" style="display: none;">
+            <button class="btn btn-secondary btn-sm" type="button" onclick="toggleFilterMenu()" style="margin-bottom: 10px;">
+                Filtrar
+            </button>
+            <div id="filter-menu" style="display: none;">
+                <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('usuario_desc')" style="margin-bottom: 8px;">Usuario Descendente</button>
+                <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('fecha')" style="margin-bottom: 8px;">Fecha</button>
+                <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('precio_asc')" style="margin-bottom: 8px;">Precio Ascendente</button>
+                <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('precio_desc')" style="margin-bottom: 8px;">Precio Descendente</button>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr id="table-headers">
@@ -79,6 +93,19 @@
         <a href="#" onclick="showSection('productos')">Productos</a>
         <a href="#" onclick="showSection('pedidos')">Pedidos</a>
     </div>
+    
+    <script>
+        // Función para mostrar/ocultar el menú desplegable de filtros
+        function toggleFilterMenu() {
+            const filterMenu = document.getElementById('filter-menu');
+            // Cambiar la visibilidad del menú
+            if (filterMenu.style.display === "none") {
+                filterMenu.style.display = "block";
+            } else {
+                filterMenu.style.display = "none";
+            }
+        }
+    </script>
 
     <script src="api/api.js"></script>
 </body>

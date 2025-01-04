@@ -19,10 +19,14 @@ class ApiController {
     public function obtenerPedidos() {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=UTF-8");
-
+    
         try {
-            $pedidos = PedidosDAO::getAllPedidos();
-
+            // Obtener el orden de los parámetros GET
+            $orden = $_GET['orden'] ?? null;
+    
+            // Llamar al DAO con el filtro de orden
+            $pedidos = PedidosDAO::getAllPedidos($orden);
+    
             if (!empty($pedidos)) {
                 echo json_encode($pedidos, JSON_PRETTY_PRINT);
             } else {

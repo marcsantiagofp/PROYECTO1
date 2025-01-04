@@ -124,28 +124,55 @@ class PedidosDAO {
         $conexion->close();
     }
 
-    // Obtener todos los pedidos de la base de datos
-    public static function getAllPedidos() {
+    // Obtener todos los pedidos de la base de datos con filtros de orden
+    public static function getAllPedidos($orden = null) {
         $conexion = DataBase::connect();
-
-        // Consulta para obtener todos los pedidos
-        $sql = "SELECT * FROM PEDIDO ORDER BY fecha_pedido ASC";
+    
+        // Lista blanca de valores permitidos para 'orden'
+        $validOrders = ['usuario_desc', 'fecha', 'precio_asc', 'precio_desc'];
+        if ($orden && !in_array($orden, $validOrders)) {
+            // Si el valor de 'orden' no es válido, asignar un valor por defecto
+            $orden = 'fecha'; // O cualquier valor por defecto que consideres apropiado
+        }
+    
+        // Construir la consulta SQL base
+        $sql = "SELECT * FROM PEDIDO";
+    
+        // Aplicar el orden si se especifica
+        switch ($orden) {
+            case 'usuario_desc':
+                $sql .= " ORDER BY id_cliente DESC";
+                break;
+            case 'fecha':
+                $sql .= " ORDER BY fecha_pedido ASC";
+                break;
+            case 'precio_asc':
+                $sql .= " ORDER BY precio_total_pedidos ASC";
+                break;
+            case 'precio_desc':
+                $sql .= " ORDER BY precio_total_pedidos DESC";
+                break;
+            default:
+                $sql .= " ORDER BY fecha_pedido ASC"; // Valor por defecto
+        }
+    
+        // Preparar y ejecutar la consulta
         $stmt = $conexion->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         // Almacenar los pedidos en un arreglo
         $pedidos = [];
         while ($row = $result->fetch_assoc()) {
             $pedidos[] = $row;
         }
-
-        // Cerrar conexión
+    
+        // Cerrar la conexión
         $stmt->close();
         $conexion->close();
-
+    
         return $pedidos;
-    }
+    }       
 
     // Eliminar un pedido y sus líneas asociadas
     public static function eliminarPedido($id) {
