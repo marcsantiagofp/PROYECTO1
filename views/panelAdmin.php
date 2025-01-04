@@ -58,16 +58,32 @@
     <div class="main-content">
         <h1 class="text-center mb-4">Admin Panel - <span id="section-title"></span></h1>
 
-        <!-- Contenedor de los botones de filtro (inicialmente oculto) -->
+        <!-- Contenedor de los botones de filtro y selector de moneda (inicialmente oculto) -->
         <div id="filter-section" style="display: none;">
-            <button class="btn btn-secondary btn-sm" type="button" onclick="toggleFilterMenu()" style="margin-bottom: 10px;">
+            <!-- Botón para desplegar el menú de filtros -->
+            <button class="btn btn-secondary btn-sm" type="button" onclick="desplegableFiltro()" style="margin-bottom: 10px;">
                 Filtrar
             </button>
+
+            <!-- Menú de filtros -->
             <div id="filter-menu" style="display: none;">
                 <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('usuario_desc')" style="margin-bottom: 8px;">Usuario Descendente</button>
                 <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('fecha')" style="margin-bottom: 8px;">Fecha</button>
                 <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('precio_asc')" style="margin-bottom: 8px;">Precio Ascendente</button>
                 <button class="btn btn-secondary btn-sm" onclick="fetchPedidos('precio_desc')" style="margin-bottom: 8px;">Precio Descendente</button>
+            </div>
+
+            <!-- Selector de moneda (solo visible en la sección de pedidos) -->
+            <div id="containerDeSelectorDeMonedas" class="currency-selector-container" style="margin-bottom: 20px; display: none;">
+                <label for="selectorDeMonedaPedidos" style="margin-right: 10px;">Selecciona moneda:</label>
+                <select id="selectorDeMonedaPedidos" style="padding: 5px 10px; font-size: 14px;">
+                    <option value="EUR" selected>EUR (€)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="JPY">JPY (¥)</option>
+                    <option value="AUD">AUD (A$)</option>
+                    <!-- Agrega más monedas si es necesario -->
+                </select>
             </div>
         </div>
 
@@ -96,7 +112,7 @@
     
     <script>
         // Función para mostrar/ocultar el menú desplegable de filtros
-        function toggleFilterMenu() {
+        function desplegableFiltro() {
             const filterMenu = document.getElementById('filter-menu');
             // Cambiar la visibilidad del menú
             if (filterMenu.style.display === "none") {
@@ -108,5 +124,6 @@
     </script>
 
     <script src="api/api.js"></script>
+    <script src="api/moneda.js"></script>
 </body>
 </html>

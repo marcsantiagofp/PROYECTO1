@@ -66,7 +66,7 @@
                         <td>${producto.id}</td>
                         <td>${producto.nombre}</td>
                         <td>${producto.descripcion}</td>
-                        <td>${producto.precio}</td>
+                        <td>${producto.precio} €</td>
                         <td>${producto.id_categoria}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" onclick="habilitarEdicionProducto(${producto.id})">Editar</button>
@@ -93,33 +93,35 @@
         `;
     }
 
-    // Función para obtener y mostrar los pedidos
+    // Función para obtener y mostrar los pedidos y adaptada a msotrar la api de la moneda
     async function fetchPedidos(orden = null) {
-        // Si se pasa un parámetro de orden, se lo agrega al query para filtrar
-        const url = `?controller=api&action=obtenerPedidos&orden=${orden || ''}`;
+        const monedaSeleccionada = document.getElementById('selectorDeMonedaPedidos').value; // Obtener la moneda seleccionada
+        const url = `?controller=api&action=obtenerPedidos&orden=${orden || ''}&moneda=${monedaSeleccionada}`; // Agregar moneda a la URL
+
         try {
             const response = await fetch(url);
             const pedidos = await response.json();
             const tableBody = document.getElementById('section-table-body');
             const noDataMessage = document.getElementById('no-data-message');
             const filterSection = document.getElementById('filter-section'); // Referencia al contenedor de los filtros
-    
+
             tableBody.innerHTML = ''; // Limpiar la tabla
-    
+
             if (!Array.isArray(pedidos) || pedidos.length === 0) {
                 noDataMessage.style.display = 'block'; // Mostrar mensaje de "No hay datos"
                 filterSection.style.display = 'none'; // Ocultar los botones de filtro si no hay datos
             } else {
                 noDataMessage.style.display = 'none'; // Ocultar mensaje
                 filterSection.style.display = 'block'; // Mostrar los botones de filtro si hay datos
-    
+
                 pedidos.forEach(pedido => {
+                    const precioConvertido = convertirPrecio(pedido.precio_total_pedidos, monedaSeleccionada); // Convertir el precio
                     tableBody.innerHTML += `
                         <tr>
                             <td>${pedido.id}</td>
                             <td>${pedido.id_cliente}</td>
                             <td>${pedido.fecha_pedido}</td>
-                            <td>${pedido.precio_total_pedidos}</td>
+                            <td>${precioConvertido}</td> <!-- Mostrar el precio convertido -->
                             <td>${pedido.cantidad_productos}</td>
                             <td>
                                 <button class="btn btn-primary btn-sm" onclick="mostrarFormularioModificarPedido(${pedido.id})">Editar</button>
@@ -129,7 +131,7 @@
                     `;
                 });
             }
-    
+
             // Siempre agregar el botón de "Agregar Pedido" al final de la tabla
             tableBody.innerHTML += `
                 <tr id="nuevo-pedido">
@@ -142,6 +144,25 @@
             console.error("Error al obtener los pedidos:", error);
         }
     }
+
+//FUNCIONES PARA LA CONVERSION DE LA MONEDA
+    // Función para convertir el precio a la moneda seleccionada
+    function convertirPrecio(precio, moneda) {
+        // Tasas de cambio (obtenidas desde la API de moneda)
+        const tasasDeCambio = {};
+
+        const tasa = tasasDeCambio[moneda] || 1; // Si no tiene tasa, dejamos el valor en EUR
+        const simbolosMoneda = {};
+        const simbolo = simbolosMoneda[moneda] || '€'; // Si no se encuentra el símbolo, usamos el símbolo del euro (€)
+
+        // Convertir el precio y formatear la respuesta
+        return `${(precio * tasa).toFixed(2)} ${simbolo}`;
+    }
+
+    // Función para manejar el cambio de moneda y recargar los pedidos
+    document.getElementById('selectorDeMonedaPedidos').addEventListener('change', function() {
+        fetchPedidos();  // Recargar los pedidos con la nueva moneda seleccionada
+    });
     
 
 //FUNCION PARA ELEMINAR LOS ELEMETOS
@@ -169,14 +190,15 @@
         const tableBody = document.getElementById('section-table-body');
         const noDataMessage = document.getElementById('no-data-message');
         const filterSection = document.getElementById('filter-section');  // Referencia al contenedor de filtros
+        const containerDeSelectorDeMonedas = document.getElementById('containerDeSelectorDeMonedas'); // Contenedor del selector de moneda
         tableBody.innerHTML = ''; // Limpiar la tabla
         noDataMessage.style.display = 'none'; // Ocultar el mensaje de "No hay datos"
-    
+
         document.getElementById('section-title').textContent = section.charAt(0).toUpperCase() + section.slice(1);
-    
+
         const tableHeaders = document.getElementById('table-headers');
         let headers = '';
-    
+
         if (section === 'usuarios') {
             headers = `
                 <th>ID</th>
@@ -189,6 +211,7 @@
             `;
             fetchUsuarios();
             filterSection.style.display = 'none'; // Ocultar los filtros si no estamos en 'pedidos'
+            containerDeSelectorDeMonedas.style.display = 'none'; // Ocultar el selector de moneda
         } else if (section === 'productos') {
             headers = `
                 <th>ID</th>
@@ -200,6 +223,7 @@
             `;
             fetchProductos();
             filterSection.style.display = 'none'; // Ocultar los filtros si no estamos en 'pedidos'
+            containerDeSelectorDeMonedas.style.display = 'none'; // Ocultar el selector de moneda
         } else if (section === 'pedidos') {
             headers = `
                 <th>ID</th>
@@ -211,10 +235,11 @@
             `;
             fetchPedidos();
             filterSection.style.display = 'block'; // Mostrar los filtros solo en 'pedidos'
+            containerDeSelectorDeMonedas.style.display = 'block'; // Mostrar el selector de moneda solo en 'pedidos'
         }
-    
+
         tableHeaders.innerHTML = headers;
-    }    
+    }   
 
 //FUNCIONES PARA AGREGAR
     /////////////////////////////////////////////
