@@ -187,7 +187,7 @@ class ApiController {
                         $resultado = ProductoDAO::insertarProducto($data->nombre, $data->precio, $data->descripcion, $url_imagen, $data->id_categoria);
                         if ($resultado) {
                             // Crear log para el nuevo producto
-                            LogsController::crearLog('Producto Añadido', '| Nombre: ' . $data->nombre . ' | Precio: ' . $data->precio);
+                            LogsController::crearLog('Producto Añadido', 'Nombre: ' . $data->nombre . ' | Precio: ' . $data->precio);
                         }
                         break;
 
