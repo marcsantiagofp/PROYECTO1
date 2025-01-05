@@ -120,51 +120,63 @@
                     <div class="col-md-4 text-center">CANTIDAD</div>
                     <div class="col-md-4 text-center">PRECIO TOTAL</div>
                 </div>
-
-                <?php if (empty($_SESSION['carrito'])): ?>
-                    <div class="mensaje-carrito-vacio">
-                        Tu carrito está vacío.
-                    </div>
-                <?php else: ?>
-                    <?php foreach ($_SESSION['carrito'] as $producto): ?>
-                        <div class="d-flex align-items-center justify-content-between mb-4 separadorLineaCarrito">
-                            <!-- Producto y nombre -->
-                            <div class="d-flex align-items-center flex-grow-1">
-                                <img src="<?= $producto['imagen'] ?>" class="img-fluid" width="100">
-                                <div class="ms-3">
-                                    <p class="mb-1 fw-bold"><?= $producto['nombre'] ?></p>
-                                </div>
-                            </div>
-
-                            <!-- Cantidad -->
-                            <div class="d-flex justify-content-center align-items-center col-md-4">
-
-                                <!-- Formulario para eliminar o restar la cantidad -->
-                                <form action="?controller=carrito&action=eliminarDelCarrito" method="POST" class="d-flex align-items-center">
-                                    <input type="hidden" name="id" value="<?= $producto['id'] ?>">
-                                    <input type="hidden" name="accion" value="restar"> <!-- Añadido para identificar que es restar -->
-                                    <!-- Botón Restar (Llama a la acción de reducir la cantidad) -->
-                                    <button class="btn btn-outline-secondary btn-sm" type="submit">-</button>
-                                </form>
-
-                                <!-- Campo de cantidad (solo lectura) -->
-                                <input type="text" name="cantidad" value="<?= $producto['cantidad'] ?>" class="form-control text-center mx-2" style="width: 50px;" readonly>
-
-                                <!-- Formulario para sumar la cantidad -->
-                                <form action="?controller=carrito&action=agregarCantidadCarrito" method="POST" class="d-flex align-items-center">
-                                    <input type="hidden" name="id" value="<?= $producto['id'] ?>">
-                                    <!-- Botón Sumar (Llama a la acción de agregar cantidad) -->
-                                    <button class="btn btn-outline-secondary btn-sm" type="submit" name="accion" value="sumar">+</button>
-                                </form>
-                            </div>
-
-                            <!-- Precio total -->
-                            <div class="d-flex justify-content-center align-items-center col-md-4">
-                                <p class="mb-0 fw-bold"><?= $producto['precio'] * $producto['cantidad'] ?>€</p>
+                <div class="container" style="background-color: white; margin-top: -30px; ">
+                    <!-- Producto - Enviado por DecathlonEats -->
+                    <div class="container" style="gap: 30px">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 text-muted" style="display: flex; align-items: center; margin-top: 20px;">
+                                <p style="margin: 0;">Vendido y enviado por</p>
+                                <img src="/PROYECTO1/images/logoPrincipal.svg" width="150" class="ms-2">
                             </div>
                         </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                        <hr>
+                    </div>
+
+                    <?php if (empty($_SESSION['carrito'])): ?>
+                        <div class="mensaje-carrito-vacio">
+                            Tu carrito está vacío.
+                        </div>
+                    <?php else: ?>
+                        <?php foreach ($_SESSION['carrito'] as $producto): ?>
+                            <div class="d-flex align-items-center justify-content-between mb-4 separadorLineaCarrito">
+                                <!-- Producto y nombre -->
+                                <div class="d-flex align-items-center flex-grow-1">
+                                    <img src="<?= $producto['imagen'] ?>" class="img-fluid" width="100" style="margin-bottom: 15px;">
+                                    <div class="ms-3">
+                                        <p class="mb-1 fw-bold"><?= $producto['nombre'] ?></p>
+                                    </div>
+                                </div>
+
+                                <!-- Cantidad -->
+                                <div class="d-flex justify-content-center align-items-center col-md-4">
+
+                                    <!-- Formulario para eliminar o restar la cantidad -->
+                                    <form action="?controller=carrito&action=eliminarDelCarrito" method="POST" class="d-flex align-items-center">
+                                        <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                                        <input type="hidden" name="accion" value="restar"> <!-- Añadido para identificar que es restar -->
+                                        <!-- Botón Restar (Llama a la acción de reducir la cantidad) -->
+                                        <button class="btn btn-outline-secondary btn-sm" type="submit">-</button>
+                                    </form>
+
+                                    <!-- Campo de cantidad (solo lectura) -->
+                                    <input type="text" name="cantidad" value="<?= $producto['cantidad'] ?>" class="form-control text-center mx-2" style="width: 50px;" readonly>
+
+                                    <!-- Formulario para sumar la cantidad -->
+                                    <form action="?controller=carrito&action=agregarCantidadCarrito" method="POST" class="d-flex align-items-center">
+                                        <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                                        <!-- Botón Sumar (Llama a la acción de agregar cantidad) -->
+                                        <button class="btn btn-outline-secondary btn-sm" type="submit" name="accion" value="sumar">+</button>
+                                    </form>
+                                </div>
+
+                                <!-- Precio total -->
+                                <div class="d-flex justify-content-center align-items-center col-md-4" style="margin-bottom: 10px">
+                                    <p class="mb-0 fw-bold"><?= $producto['precio'] * $producto['cantidad'] ?>€</p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <!-- Sección derecha: Resumen del pedido -->
