@@ -1,0 +1,13 @@
+[2025-01-05 01:14:58] - ACCION: Usuario Eliminado - DETALLE: Se ha eliminado el usuario con ID: 16
+[2025-01-05 01:28:38] - ACCION: Producto Eliminado - DETALLE: Se ha eliminado el producto con ID: 29
+[2025-01-05 01:29:19] - ACCION: Pedido Eliminado - DETALLE: Se ha eliminado el pedido con ID: 125
+[2025-01-05 01:29:56] - ACCION: Usuario Actualizado - DETALLE: ID Usuario: 11 | Nombre: pruebaa
+[2025-01-05 01:30:21] - ACCION: Producto Actualizado - DETALLE: ID Producto: 1 | Nombre: Long Chicken VEG
+[2025-01-05 01:35:19] - ACCION: Pedido Actualizado - DETALLE: ID Pedido: 124 | Precio Total: 4 | Cantidad Productos: 2
+[2025-01-05 01:49:14] - ACCION: Usuario Añadido - DETALLE: ID Usuario:  | Nombre: Chris | Email: chris@gmail.com
+[2025-01-05 01:53:47] - ACCION: Pedido Añadido - DETALLE: Cliente ID: 3 | Precio Total: 5.99
+[2025-01-05 02:00:36] - ACCION: Usuario Eliminado - DETALLE: Se ha eliminado el usuario con ID: 25
+[2025-01-05 02:00:50] - ACCION: Usuario Añadido - DETALLE: Nombre: prueba | Email: prueba
+[2025-01-05 02:01:09] - ACCION: Producto Añadido - DETALLE: | Nombre: prueba | Precio: 1
+[2025-01-05 02:01:19] - ACCION: Producto Eliminado - DETALLE: Se ha eliminado el producto con ID: 31
+[2025-01-05 02:01:27] - ACCION: Usuario Eliminado - DETALLE: Se ha eliminado el usuario con ID: 26

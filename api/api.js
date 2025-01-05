@@ -145,6 +145,45 @@
         }
     }
 
+    //funcion para mostrar los logs guarrdados de las acciones
+    async function fetchLogs() {
+        const url = '?controller=logs&action=mostrarLogs';
+     
+        try {
+            const response = await fetch(url);
+            const textResponse = await response.text();  // Obtener la respuesta como texto
+    
+            console.log(textResponse);  // Mostrar la respuesta completa del servidor
+    
+            const logs = JSON.parse(textResponse);  // Intentar convertir el texto a JSON
+            const tableBody = document.getElementById('section-table-body');
+            const noDataMessage = document.getElementById('no-data-message');
+            const filterSection = document.getElementById('filter-section');
+     
+            tableBody.innerHTML = '';
+            filterSection.style.display = 'none';
+     
+            if (logs.error) {
+                noDataMessage.style.display = 'block';
+                noDataMessage.textContent = logs.error;
+            } else if (!Array.isArray(logs) || logs.length === 0) {
+                noDataMessage.style.display = 'block';
+                noDataMessage.textContent = 'No hay registros en los logs.';
+            } else {
+                noDataMessage.style.display = 'none';
+                logs.forEach(log => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${log}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } catch (error) {
+            console.error('Error al obtener los logs:', error);
+        }
+    } 
+
 //FUNCIONES PARA LA CONVERSION DE LA MONEDA
     // Función para convertir el precio a la moneda seleccionada
     function convertirPrecio(precio, moneda) {
@@ -236,6 +275,13 @@
             fetchPedidos();
             filterSection.style.display = 'block'; // Mostrar los filtros solo en 'pedidos'
             containerDeSelectorDeMonedas.style.display = 'block'; // Mostrar el selector de moneda solo en 'pedidos'
+        } else if (section === 'logs'){
+            headers = `
+                <th>ACCIONES</th>
+            `;
+            fetchLogs();
+            filterSection.style.display = 'none'; // Ocultar los filtros si no estamos en 'pedidos'
+            containerDeSelectorDeMonedas.style.display = 'none'; // Ocultar el selector de moneda
         }
 
         tableHeaders.innerHTML = headers;
@@ -836,5 +882,5 @@
 
 //FUNCION CARGAR USUARIOS COMO PRIMERA PAGINA
 document.addEventListener('DOMContentLoaded', function() {
-    showSection('pedidos'); // Mostrar la sección de usuarios por defecto
+    showSection('logs'); // Mostrar la sección de usuarios por defecto
 });

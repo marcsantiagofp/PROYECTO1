@@ -4,6 +4,7 @@ include_once("controllers/productoController.php");
 include_once("controllers/carritoController.php");
 include_once("controllers/usuarioController.php");
 include_once("controllers/apiController.php");
+include_once("controllers/logsController.php");
 
 if (!isset($_GET['controller'])) {
     header("Location:" . url_base . "?controller=producto");

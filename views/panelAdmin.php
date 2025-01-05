@@ -108,6 +108,7 @@
         <a href="#" onclick="showSection('usuarios')">Usuarios</a>
         <a href="#" onclick="showSection('productos')">Productos</a>
         <a href="#" onclick="showSection('pedidos')">Pedidos</a>
+        <a href="#" onclick="showSection('logs')">Logs</a>
     </div>
     
     <script>

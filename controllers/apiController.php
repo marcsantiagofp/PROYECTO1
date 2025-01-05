@@ -109,6 +109,8 @@ class ApiController {
                         if (!$usuario) {
                             echo json_encode(["error" => "ID de cliente no válido, vuelva a confirmar pedido e introducir uno correcto"]);
                             exit;  // Detener si el cliente no existe
+                        }else{
+                            LogsController::crearLog('Pedido Añadido', 'Cliente ID: ' . $data->id_cliente . ' | Precio Total: ' . $data->precio_total_pedidos);
                         }
                     
                         // Iniciar una transacción
@@ -165,6 +167,10 @@ class ApiController {
                         $contraseñaHash = password_hash($data->contraseña, PASSWORD_DEFAULT);
                         // Insertar el usuario en la base de datos pasando los datos directamente
                         $resultado = UsuarioDAO::insertarUsuarioAdmin($data->nombre, $data->email, $contraseñaHash, $data->direccion, $data->rol);
+                        if ($resultado) {
+                            // Crear log para el nuevo usuario
+                            LogsController::crearLog('Usuario Añadido', 'Nombre: ' . $data->nombre . ' | Email: ' . $data->email);
+                        }
                         break;
 
                     case 'producto':
@@ -179,6 +185,10 @@ class ApiController {
                     
                         // Insertar el producto pasando los parámetros directamente
                         $resultado = ProductoDAO::insertarProducto($data->nombre, $data->precio, $data->descripcion, $url_imagen, $data->id_categoria);
+                        if ($resultado) {
+                            // Crear log para el nuevo producto
+                            LogsController::crearLog('Producto Añadido', '| Nombre: ' . $data->nombre . ' | Precio: ' . $data->precio);
+                        }
                         break;
 
                     default:
@@ -216,14 +226,26 @@ class ApiController {
                 // Comprobar el tipo de elemento y llamar a la función correspondiente
                 switch ($tipo) {
                     case 'usuario':
+                        // Eliminar usuario
                         $resultado = UsuarioDAO::eliminarUsuario($id);
+                        // Registrar el log de la eliminación del usuario
+                        LogsController::crearLog('Usuario Eliminado', "Se ha eliminado el usuario con ID: " . $id);
                         break;
+
                     case 'producto':
+                        // Eliminar producto
                         $resultado = ProductoDAO::eliminarProducto($id);
+                        // Registrar el log de la eliminación del producto
+                        LogsController::crearLog('Producto Eliminado', "Se ha eliminado el producto con ID: " . $id);
                         break;
+                        
                     case 'pedido':
+                        // Eliminar pedido
                         $resultado = PedidosDAO::eliminarPedido($id);
+                        // Registrar el log de la eliminación del pedido
+                        LogsController::crearLog('Pedido Eliminado', "Se ha eliminado el pedido con ID: " . $id);
                         break;
+                        
                     default:
                         echo json_encode(["error" => "Tipo no válido"]);
                         return;
@@ -292,6 +314,8 @@ class ApiController {
                         $eliminarLineas = PedidosDAO::eliminarLineasPedido($data->id_pedido);
                         if (!$eliminarLineas) {
                             echo json_encode(["error" => "Error al eliminar las líneas de productos del pedido."]);
+                        }else{
+                            LogsController::crearLog('Pedido Actualizado', 'ID Pedido: ' . $data->id_pedido . ' | Precio Total: ' . $data->precio_total_pedidos . ' | Cantidad Productos: ' . $data->cantidad_productos);
                         }
                     
                         // Procesar cada producto para actualizar o crear las líneas de pedido
@@ -332,7 +356,7 @@ class ApiController {
                             if (!$resultadoLinea) {
                                 echo json_encode(["error" => "Error al actualizar la línea de pedido para el producto ID " . $producto->id]);
                                 return;
-                            }
+                            }       
                         }
                         break;                                                                                                           
 
@@ -355,6 +379,7 @@ class ApiController {
 
                         if ($resultado) {
                             echo json_encode(["success" => true, "mensaje" => "Usuario actualizado exitosamente"]);
+                            LogsController::crearLog('Usuario Actualizado', 'ID Usuario: ' . $data->id . ' | Nombre: ' . $data->nombre);
                         } else {
                             echo json_encode(["error" => "Error al actualizar el usuario"]);
                         }
@@ -396,6 +421,7 @@ class ApiController {
                             // Verificar si la actualización fue exitosa
                             if ($resultado) {
                                 echo json_encode(["success" => true, "mensaje" => "Producto actualizado exitosamente"]);
+                                LogsController::crearLog('Producto Actualizado', 'ID Producto: ' . $data->id . ' | Nombre: ' . $data->nombre);
                             } else {
                                 echo json_encode(["error" => "Error al actualizar el producto, intente nuevamente"]);
                             }
