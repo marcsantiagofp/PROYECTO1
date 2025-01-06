@@ -6,7 +6,9 @@
             <div class="col-md-3 mb-4">
                 <h6 class="footer-title">DECATHLONeats MEMBER</h6>
                 <p class="footer-text">¡Únete ahora y accede a ventajas exclusivas solo para miembros DECATHLONeats!</p>
-                <button class="btn btn-light" style="border-radius: 0; font-weight: bold; padding: 10px;">Únete ahora !!!</button>
+                <div style="margin-left: -150px;">
+                    <button class="btn btn-light" style="border-radius: 0; font-weight: bold; padding: 10px; text-align: left;">Únete ahora !!!</button>
+                </div>
                 <div class="social-icons mt-3">
                     <a href="#" onclick="return false;"><i class="bi bi-instagram"></i></a>
                     <a href="#" onclick="return false;"><i class="bi bi-tiktok"></i></a>
@@ -57,12 +59,18 @@
             </div>
         </div>
 
-        <hr style="border-width: 3.5px; color: #ffffff;">
+        <div style="margin-top: -100px; margin-bottom: 40px;">
+            <div class="row">
+                <div class="col-md-9 offset-md-3">
+                    <hr style="border-width: 3.5px; color:rgb(255, 255, 255);">
+                </div>
+            </div>
 
-        <!-- Footer bottom -->
-        <div class="row">
-            <div class="col">
-                <p class="mb-0" style="text-align: right;">©2024 DECATHLONeats</p>
+            <!-- Footer bottom -->
+            <div class="row">
+                <div class="col">
+                    <p class="mb-0" style="text-align: right;">©2024 DECATHLONeats</p>
+                </div>
             </div>
         </div>
     </div>
