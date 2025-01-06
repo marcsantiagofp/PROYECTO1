@@ -280,6 +280,10 @@
                                     <label for="cvv" class="form-label">CVV</label>
                                     <input type="text" id="cvv" class="form-control" name="cvv" placeholder="XXX" required>
                                 </div>
+                                <div class="mt-3">
+                                    <label for="direccionEntrega" class="form-label">Direccion de entrega</label>
+                                    <input type="text" id="direccionEntrega" class="form-control" name="direccionEntrega" placeholder="Direccion" required>
+                                </div>
                                 <hr>
                                 <button type="submit" class="botonesCarrito">FINALIZAR PEDIDO</button>
                             </form>
