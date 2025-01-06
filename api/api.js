@@ -882,5 +882,5 @@
 
 //FUNCION CARGAR USUARIOS COMO PRIMERA PAGINA
 document.addEventListener('DOMContentLoaded', function() {
-    showSection('logs'); // Mostrar la sección de usuarios por defecto
+    showSection('usuarios'); // Mostrar la sección de usuarios por defecto
 });

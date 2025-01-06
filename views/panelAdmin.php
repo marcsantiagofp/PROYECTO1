@@ -5,50 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            padding-top: 20px;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            display: block;
-        }
-        .sidebar a:hover {
-            background-color: #495057;
-        }
-        .main-content {
-            flex-grow: 1;
-            margin-right: 250px;
-            padding: 20px;
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
-            background-color: #343a40;
-        }
-        .no-data {
-            text-align: center;
-            color: red;
-            font-size: 1.2rem;
-            margin-top: 20px;
-        }
-    </style>
+    <!-- Css -->
+    <link rel="stylesheet" href="css/cssAdmin.css">
 </head>
 <body>
     <!-- Botón para volver a la página principal -->
