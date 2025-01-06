@@ -43,7 +43,7 @@
             </div>
             <div class="header-links d-flex align-items-center">
                 <div class="iconos d-flex align-items-center">
-                    <a href="/tienda" style="text-decoration: none;">
+                    <a href="#" onclick="return false;" style="text-decoration: none;">
                         <div class="iconoCarrito d-flex flex-column align-items-center">
                             <span class="icono-img"><i class="bi bi-question-circle"></i></span> <!-- Ayuda -->
                             <span class="text-nowrap">AYUDA</span>
