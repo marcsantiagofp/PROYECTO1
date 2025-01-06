@@ -34,7 +34,9 @@
     <div class="quartaSeccion">
         <div class="etiquetaRecomendamos">Te Recomendamos</div>
         <img src="/PROYECTO1/images/SECCION4HOME.svg" class="img-fluid imagenQuartaSeccion"> 
-        <button type="button" class="etiquetaComprar">Comprar</button>
+        <a href="?controller=producto&action=verDetalles&id=3">
+            <button type="button" class="etiquetaComprar">Comprar</button>
+        </a>
     </div>
 </div>
 
