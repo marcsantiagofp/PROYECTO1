@@ -8,13 +8,13 @@
                 <p class="footer-text">¡Únete ahora y accede a ventajas exclusivas solo para miembros DECATHLONeats!</p>
                 <button class="btn btn-light" style="border-radius: 0; font-weight: bold; padding: 10px;">Únete ahora !!!</button>
                 <div class="social-icons mt-3">
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-tiktok"></i></a>
-                    <a href="#"><i class="bi bi-pinterest"></i></a>
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-whatsapp"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-tiktok"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-pinterest"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-facebook"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-youtube"></i></a>
+                    <a href="#" onclick="return false;"><i class="bi bi-linkedin"></i></a>
                 </div>
                 <div class="mt-3">
                     <img src="/PROYECTO1/images/logoBlanco.svg" alt="DecathlonEats Logo" class="logoFooter" width="230px">
@@ -25,11 +25,11 @@
             <div class="col-md-3 mb-4">
                 <h6 class="footer-title">DECATHLONeats Empresa</h6>
                 <ul class="list-unstyled footer-text">
-                    <li><a href="#">Quiénes somos</a></li>
-                    <li><a href="#">Tiendas Decathlon</a></li>
-                    <li><a href="#">Trabaja con nosotros</a></li>
-                    <li><a href="#">Sala de prensa</a></li>
-                    <li><a href="#">Canal ético</a></li>
+                    <li><a href="#" onclick="return false;">Quiénes somos</a></li>
+                    <li><a href="#" onclick="return false;">Tiendas Decathlon</a></li>
+                    <li><a href="#" onclick="return false;">Trabaja con nosotros</a></li>
+                    <li><a href="#" onclick="return false;">Sala de prensa</a></li>
+                    <li><a href="#" onclick="return false;">Canal ético</a></li>
                 </ul>
             </div>
 
@@ -37,11 +37,11 @@
             <div class="col-md-3 mb-4">
                 <h6 class="footer-title">Tipos de pago</h6>
                 <ul class="list-unstyled footer-text">
-                    <li><a href="#">PAYPAL</a></li>
-                    <li><a href="#">T. crédito</a></li>
-                    <li><a href="#">Bizum</a></li>
-                    <li><a href="#">Pay Card</a></li>
-                    <li><a href="#">Wireless</a></li>
+                    <li><a href="#" onclick="return false;">PAYPAL</a></li>
+                    <li><a href="#" onclick="return false;">T. crédito</a></li>
+                    <li><a href="#" onclick="return false;">Bizum</a></li>
+                    <li><a href="#" onclick="return false;">Pay Card</a></li>
+                    <li><a href="#" onclick="return false;">Wireless</a></li>
                 </ul>
             </div>
 
