@@ -36,7 +36,7 @@
                     <a href="?controller=producto&action=home">
                         <img src="/PROYECTO1/images/logoPrincipal.svg" alt="DecathlonEats Logo" class="img-fluid logo">
                     </a>
-                    <input type="text" placeholder="Busca productoa, ..." class="buscador">
+                    <input type="text" placeholder="Busca productos, ...   (desactivado temporalmente)" class="buscador">
                     <button class="buscar-btn"><img src="/PROYECTO1/images/lupa.svg" alt="DecathlonEats Logo" class="lupa"></button>
                     <div class="iconos">
                         <a href="/tienda">

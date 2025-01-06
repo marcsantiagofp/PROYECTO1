@@ -49,10 +49,10 @@
             <div class="col-md-3 mb-4">
                 <h6 class="footer-title">Top categorías</h6>
                 <ul class="list-unstyled footer-text">
-                    <li><a href="#">Pollo</a></li>
-                    <li><a href="#">Ternera</a></li>
-                    <li><a href="#">Vegano</a></li>
-                    <li><a href="#">Bebidas</a></li>
+                    <li><a href="?controller=producto&action=mostrarProductos&id=1">Hamburgesas</a></li>
+                    <li><a href="?controller=producto&action=mostrarProductos&id=6">Bebidas</a></li>
+                    <li><a href="?controller=producto&action=mostrarProductos&id=5">Patatas</a></li>
+                    <li><a href="?controller=producto&action=mostrarProductos&id=2">Menus</a></li>
                 </ul>
             </div>
         </div>
