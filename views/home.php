@@ -12,7 +12,7 @@
 <div class="container px-6 text-center">
     <div class="col">
         <div class="primeraSeccion">
-            <img src="/PROYECTO1/images/SECCION1HOME.svg" class="img-fluid imagenPrimeraSeccion"> 
+            <img src="/PROYECTO1/images/SECCION1HOME.webp" class="img-fluid imagenPrimeraSeccion"> 
             <a href="?controller=producto&action=ofertas"><button type="button" class="etiquetaOferta">Ver ofertas</button></a>
         </div>
     </div>
@@ -33,7 +33,7 @@
 <div class="col">
     <div class="quartaSeccion">
         <div class="etiquetaRecomendamos">Te Recomendamos</div>
-        <img src="/PROYECTO1/images/SECCION4HOME.svg" class="img-fluid imagenQuartaSeccion"> 
+        <img src="/PROYECTO1/images/SECCION4HOME.webp" class="img-fluid imagenQuartaSeccion"> 
         <a href="?controller=producto&action=verDetalles&id=3">
             <button type="button" class="etiquetaComprar">Comprar</button>
         </a>
