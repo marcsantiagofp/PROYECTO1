@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS PERSONALIZADO -->
     <link rel="stylesheet" href="/PROYECTO1/css/styles.css">
+    <!-- icnoo -->
+    <link rel="icon" type="image/x-icon" href="/PROYECTO1/images/d.svg">
     <script>
         function mostrarFormularioPago() {
             var formularioPago = document.getElementById('formulario-pago');

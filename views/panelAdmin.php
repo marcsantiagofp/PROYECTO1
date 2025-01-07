@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Css -->
     <link rel="stylesheet" href="css/cssAdmin.css">
+    <!-- icnoo -->
+    <link rel="icon" type="image/x-icon" href="/PROYECTO1/images/d.svg">
 </head>
 <body>
     <!-- Botón para volver a la página principal -->
