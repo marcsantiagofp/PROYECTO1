@@ -11,8 +11,8 @@ DECATHLONeats representa una referència directa a Decathlon, però adaptada al 
 ## Funcionalitats Clau
 - **Sistema d'usuari**: Registre, inici de sessió i gestió del compte personal.
 - **Catàleg de productes**: Llistat d'hamburgueses i opcions disponibles.
-- **Personalització de productes**: Opcions per personalitzar les hamburgueses segons les preferències del client.
 - **Procés de compra en línia**: Una experiència intuïtiva per seleccionar, personalitzar i comprar els productes.
+- - **Panell d'administrador**: Panel per a que l'usuari administrador pugui admistrar la web facilment
 
 ## Tecnologies Utilitzades
 - **HTML5**: Per estructurar el contingut de la pàgina.
