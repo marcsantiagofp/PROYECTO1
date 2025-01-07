@@ -13,7 +13,7 @@
     <div class="col">
         <div class="primeraSeccion">
             <img src="/PROYECTO1/images/SECCION1HOME.webp" class="img-fluid imagenPrimeraSeccion"> 
-            <a href="?controller=producto&action=ofertas"><button type="button" class="etiquetaOferta">Ver ofertas</button></a>
+            <a href="?controller=producto&action=mostrarProductos&id=8"><button type="button" class="etiquetaOferta">Ver ofertas</button></a>
         </div>
     </div>
 <!-- SECCION 2 -->
