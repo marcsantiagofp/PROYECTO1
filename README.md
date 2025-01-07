@@ -12,7 +12,7 @@ DECATHLONeats representa una referència directa a Decathlon, però adaptada al 
 - **Sistema d'usuari**: Registre, inici de sessió i gestió del compte personal.
 - **Catàleg de productes**: Llistat d'hamburgueses i opcions disponibles.
 - **Procés de compra en línia**: Una experiència intuïtiva per seleccionar, personalitzar i comprar els productes.
-- **Panell d'administrador**: Panel per a que l'usuari administrador pugui admistrar la web facilment
+- **Panell d'administrador**: Panell per a que l'usuari administrador pugui admistrar la web facilment
 
 ## Tecnologies Utilitzades
 - **HTML5**: Per estructurar el contingut de la pàgina.
